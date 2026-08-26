@@ -2,15 +2,26 @@
 
 Accessibility requires two different color systems depending on the medium.
 
+Machine-readable sources:
+
+- `principles/tokens.screen.json`
+- `principles/tokens.print-monochrome.json`
+
+These values are a **reference palette** (warm paper, muted sage, dark ink). Forks may substitute equivalent low-saturation screen colors and high-contrast print colors. The rules are the law: two maps, no pure black-on-white vibration, no hue-only state.
+
 ## Screen (Comfort Mode)
-Low-saturation, sensory-friendly palette intended for prolonged viewing:
-- Sage `#7A8F7A`
-- Sand `#E8D9C8`
+
 - Paper `#F7F3EE`
-- Deep Moss `#4A5D4E` (for focus and structure)
+- Sand `#E8D9C8`
+- Sage `#7A8F7A`
+- Deep Moss `#4A5D4E`
+- Warm Edge `#DFCDBA`
+- Ink `#2C2A28`
 
 ## Print (High-Contrast / Low-Ink Mode)
-Higher contrast values that remain legible on cheap home inkjet printers and survive ink washout. Target contrast ratios of 7:1 or higher for body text.
+
+Target ≥7:1 for body text on cheap inkjets. Body text stays Ink `#2C2A28` (not pure `#000000` on `#FFFFFF`) to avoid visual vibration. Strokes may use a 100% dark channel. Paper stock may be white.
 
 ## Implementation
-Maintain two separate token maps (`tokens.screen` and `tokens.print`). Never force the screen comfort palette onto print, and never force high-contrast print values onto a calm screen interface.
+
+Never force the screen comfort palette onto print. Never force print-high-contrast values onto a calm screen interface.

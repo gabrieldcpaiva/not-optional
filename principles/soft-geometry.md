@@ -2,17 +2,20 @@
 
 ## Purpose
 
-Replace color-only coding in trackers, ladders, charts, and status indicators with distinct geometric shapes and subtle patterns. This serves Color Vision Deficiency users and creates a calm, recognizable visual signature.
+Replace color-only coding with distinct geometric shapes and patterns so CVD users and print/grayscale readers can still separate states.
 
 ## Core Motifs
 
-Reusable container shapes (examples):
 - Pill
 - Nested Arch
 - Stepping Stone
 
-Each motif should support optional pattern fills (hatching, dots, dashes) so categories remain distinguishable in grayscale, print, and under CVD simulation.
+Each motif may use pattern fills (hatching, dots, dashes).
 
-## Rule
+## Print-safe geometry
 
-Never rely on hue alone to communicate state or category. Always pair color with shape, pattern, or label.
+- Minimum stroke width: 1.5pt (≈2px at 96dpi) on all container motifs.
+- Thin strokes under 1pt are forbidden on printables.
+- Pair every color state with shape, pattern, or label. Never hue alone.
+
+SVG asset files are optional and not required for V1. The rule is the shape + pattern + label, not a proprietary brand pack.

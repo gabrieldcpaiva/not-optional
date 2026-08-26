@@ -1,0 +1,12 @@
+{
+  "name": "not-optional print monochrome tokens",
+  "version": "1.0.0",
+  "tokens": {
+    "color": {
+      "canvas": { "value": "#FFFFFF", "description": "Paper stock" },
+      "surface": { "value": "#F0F0F0", "description": "Light container tint" },
+      "line": { "value": "#2C2A28", "description": "Dark stroke" },
+      "text": { "value": "#2C2A28", "description": "Ink body; avoid #000 on #FFF vibration" }
+    }
+  }
+}

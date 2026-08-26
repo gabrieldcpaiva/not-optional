@@ -1,0 +1,20 @@
+{
+  "name": "not-optional screen tokens",
+  "version": "1.0.0",
+  "tokens": {
+    "color": {
+      "canvas": { "value": "#F7F3EE", "description": "Paper background (reference; forks may swap equivalent comfort colors)" },
+      "surface": { "value": "#E8D9C8", "description": "Sand surface" },
+      "accent": { "value": "#7A8F7A", "description": "Sage" },
+      "brand": { "value": "#4A5D4E", "description": "Deep Moss" },
+      "divider": { "value": "#DFCDBA", "description": "Warm Edge" },
+      "text": { "value": "#2C2A28", "description": "Ink body text" }
+    },
+    "focus": {
+      "width": { "value": "3px" },
+      "style": { "value": "solid" },
+      "color": { "value": "#4A5D4E" },
+      "offset": { "value": "2px" }
+    }
+  }
+}
