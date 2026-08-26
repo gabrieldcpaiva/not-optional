@@ -1,22 +1,23 @@
 ---
 name: dual-format-a11y
-description: Analyze design specifications and webpage content to separate accessibility into web components (ARIA, keyboard focus, live regions) and static print assets (vector text, minimum point size, correct physical dimensions). Strip web-only markup from print configurations and verify print readiness.
+description: Splits web a11y from print a11y. Names dual artifacts and keeps ARIA out of PDFs.
 ---
 
 # Dual-Format Accessibility Workflows
 
-Separate dynamic web accessibility requirements from static print/PDF standards for products that ship both a storefront experience and downloadable assets.
-
 ## Core Principle
 
-Web a11y and print a11y solve different problems. Never let ARIA, live regions, or focus management leak into print PDFs. Never let print-only constraints dictate the interactive storefront.
+Web a11y and print a11y solve different problems. Never leak ARIA, live regions, or focus management into print PDFs.
+
+## Artifact names
+
+- `*_Screen_Comfort.pdf` for screen-comfort review copies
+- `*_Print_Monochrome_HighContrast.pdf` for home-print masters
+
+Print body contrast target ≥7:1. Use `principles/tokens.print-monochrome.json` for print builds and `principles/tokens.screen.json` for web.
 
 ## Process
 
-1. Ingest design specs, HTML/CSS, or webpage content for dual-delivery products.
-2. Identify all web-only accessibility features (ARIA attributes, focus states, live regions).
-3. Identify all print-specific requirements (minimum 12pt body text, vector text, physical margins, page size).
-4. Produce two clean outputs:
-   - Web version that retains full interactive accessibility
-   - Print/PDF version with web-only markup removed and print constraints enforced
-5. Verify that neither version contaminates the other.
+1. Split the spec into web-only and print-only requirements.
+2. Emit both artifact names when a printable is produced.
+3. Verify no web-only markup remains in the print file.

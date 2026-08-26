@@ -1,22 +1,21 @@
 ---
 name: cognitive-load-linter
-description: Scans product copy and layout templates for paragraphs exceeding 4 lines, inserts clear bulleted lists for long descriptions, and enforces at least 40 percent empty space on printable canvases to reduce cognitive load for neurodivergent users.
+description: Caps paragraphs at 4 lines / 45 words / 65 characters per line and enforces ≥40 percent empty space on printable canvases.
 ---
 
 # Cognitive Load & Micro-Chunking Linter
 
-Enforce micro-chunking and generous negative space so neurodivergent and high-stress users can process product copy and printable layouts without executive overload or visual fatigue.
-
 ## Core Enforcement Rules
 
-- Zero continuous body-text blocks longer than 4 lines.
-- Convert any longer description into a short bulleted list.
-- Every printable canvas must keep at least 40 percent unencumbered empty or negative space.
+- Zero continuous body-text blocks longer than 4 visual lines.
+- Quantified cap: ≤65 characters per line and ≤45 words per paragraph before list decomposition.
+- Convert longer descriptions into short bullets.
+- Every printable canvas keeps ≥40 percent unencumbered space.
 
 ## Process
 
-1. Ingest the supplied product copy, layout template, or text layer.
-2. Identify every body-text block and measure line count under the intended rendering width.
-3. Flag any block that exceeds 4 continuous lines of prose.
-4. Rewrite flagged blocks into short sentences or bulleted lists.
-5. Verify that printable pages maintain the 40% negative space rule.
+1. Ingest copy or layout text.
+2. Measure line length in characters and word count per paragraph.
+3. Flag blocks over 4 lines, 65 characters/line, or 45 words.
+4. Rewrite into short sentences or bullets.
+5. Verify printable negative-space quota.

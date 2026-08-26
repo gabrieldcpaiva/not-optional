@@ -1,26 +1,37 @@
 ---
 name: a11y-ci-gatekeeper
-description: Runs automated accessibility regression checks on storefront and product page releases before publishing. Uses axe-core and pa11y-style rules to block deployments that regress contrast, alt-text, focus indicators, or keyboard operability. Generates a compliance report for every release build.
+description: Runs automated accessibility regression checks before publishing. Uses axe-core and pa11y-style rules to block contrast, alt-text, focus, and keyboard regressions. Exit 0 pass, exit 1 fail.
 ---
 
 # Automated Accessibility Regression Tester
 
-Prevent storefronts and product pages from quietly losing accessibility quality over successive releases. Every candidate build must pass a fixed set of automated and rule-based checks before it is allowed to reach production.
+Zero accessibility regressions on production-bound builds.
 
 ## Core Enforcement Rules
 
-- Zero accessibility regressions are permitted in any production-bound build.
-- Critical failures that always block release:
-  - Contrast ratio below WCAG 2.1 AA (4.5:1 for normal text, 3:1 for large text and UI components).
-  - Interactive images or product thumbnails missing meaningful alt text.
-  - Any interactive control lacking a visible focus indicator.
-  - Keyboard traps or incomplete keyboard operability on primary flows (especially checkout).
-- High-severity issues (missing ARIA on expandables, broken heading order, pure-color state indicators) also block unless explicitly waived with documented justification.
-- The gatekeeper produces a machine-readable and human-readable compliance report for every run.
+- Contrast below WCAG 2.1 AA blocks release (4.5:1 normal text, 3:1 large text and UI).
+- Interactive images missing meaningful alt text block release.
+- Interactive controls without a visible focus indicator block release.
+- Keyboard traps or incomplete keyboard operability on primary flows block release.
+- Missing ARIA on expandables, broken heading order, and hue-only state indicators block unless waived in writing.
 
-## Process
+## Inputs and outputs
 
-1. Ingest the candidate release (live preview URL, staging HTML, component library snapshot, or design-to-code export).
-2. Run the automated rule suite focusing on contrast, alt-text, focus indicators, and keyboard operability.
-3. Generate a clear pass/fail report with specific failures and suggested fixes.
-4. Block the release if any critical or high-severity issues remain unaddressed.
+- Input: built static directory or local URL.
+- Output: `./reports/a11y-report.json` when the runner supports it.
+- Exit `0` = pass. Exit `1` = violation.
+
+## Execution
+
+```bash
+npx pa11y-ci --config .pa11yci.json
+```
+
+Use root `.pa11yci.json`. Standard: WCAG2AA. Runners: axe + htmlcs.
+This repo does not require npm install to use the skill. The command is optional local tooling.
+
+## Acceptance
+
+- [ ] Scan completes against listed URLs.
+- [ ] WCAG 2.1 AA violations = 0.
+- [ ] Missing alt, broken ARIA, and contrast failures fail the gate.
