@@ -1,27 +1,30 @@
-# Dual-Layer Color Tokens
+# Color tokens
 
-Accessibility requires two different color systems depending on the medium.
+Agents: read the JSON first. This file only states the rules.
 
-Machine-readable sources:
+```
+principles/tokens.screen.json
+principles/tokens.print-monochrome.json
+```
 
-- `principles/tokens.screen.json`
-- `principles/tokens.print-monochrome.json`
+## Law (not optional)
 
-These values are a **reference palette** (warm paper, muted sage, dark ink). Forks may substitute equivalent low-saturation screen colors and high-contrast print colors. The rules are the law: two maps, no pure black-on-white vibration, no hue-only state.
+- Two maps. Screen comfort ≠ print contrast.
+- Never pair `#000000` body text with `#FFFFFF` canvas (visual vibration).
+- Never encode state with hue alone.
+- Screen body contrast ≥ WCAG 2.1 AA (4.5:1 normal text).
+- Print body contrast ≥ 7:1 on cheap inkjet output.
 
-## Screen (Comfort Mode)
+## Token keys (stable)
 
-- Paper `#F7F3EE`
-- Sand `#E8D9C8`
-- Sage `#7A8F7A`
-- Deep Moss `#4A5D4E`
-- Warm Edge `#DFCDBA`
-- Ink `#2C2A28`
+| Key | Role |
+| --- | --- |
+| `color.canvas` | Page background |
+| `color.surface` | Secondary surface |
+| `color.accent` | Quiet accent |
+| `color.emphasis` | Focus rings, headings, structure |
+| `color.divider` | Rules / separators |
+| `color.text` | Body text |
+| `focus.width` `focus.style` `focus.color` `focus.offset` | Keyboard focus (screen only) |
 
-## Print (High-Contrast / Low-Ink Mode)
-
-Target ≥7:1 for body text on cheap inkjets. Body text stays Ink `#2C2A28` (not pure `#000000` on `#FFFFFF`) to avoid visual vibration. Strokes may use a 100% dark channel. Paper stock may be white.
-
-## Implementation
-
-Never force the screen comfort palette onto print. Never force print-high-contrast values onto a calm screen interface.
+Hex values in the JSON are a **worked example** of a low-saturation warm screen set and an ink-safe print set. Replace them with any equivalents that still pass the law above. Do not treat example names or example hexes as a required brand.

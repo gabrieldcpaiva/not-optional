@@ -1,13 +1,16 @@
-# Off-Black / Off-White Contrast
+# Contrast
 
-## Screen
+## Physiological rule
 
-Avoid pure `#000000` on pure `#FFFFFF`. Prefer Ink `#2C2A28` on Paper `#F7F3EE` (≈13.5:1). WCAG 2.1 AA floors: 4.5:1 normal text, 3:1 large text and UI components.
+Do not set body text to `#000000` on `#FFFFFF`. That pair is high ratio and still harmful: it produces visual vibration and text freezing for many dyslexic and fatigued readers.
 
-## Print
+Use off-black text on off-white canvas on screens. Example only: `#2C2A28` on `#F7F3EE` (≈13.5:1).
 
-Measure physical reflectance and ink, not only CSS luminance. Body text remains Ink `#2C2A28`. Do not default body to `#000000` on `#FFFFFF`. Monochrome mode may use a 100% dark stroke channel on paper stock. Target ≥7:1 for printed body text on cheap inkjets.
+## Screen (WCAG 2.1 AA)
 
-## Intent
+- Normal text ≥ 4.5:1
+- Large text and UI components ≥ 3:1
 
-High contrast without visual vibration.
+## Print (physical)
+
+CSS luminance is not ink. Target ≥7:1 for printed body text on cheap inkjets. Keep body as dark ink (example `#2C2A28`), not pure black on pure white. Strokes may use a full dark channel.

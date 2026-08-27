@@ -1,20 +1,22 @@
-# High-Legibility Typography
+# Typography
 
-## Unified font hierarchy
+## Law (not optional)
 
-- **Display and section headings (≥24pt / 32px):** Fraunces or Lora. Warm open-geometry serifs only at display size.
-- **Body, instructions, tables, form inputs (12pt–16pt print / 16px–21px screen):** Plus Jakarta Sans or Inter. Tall x-height, distinct `1` / `l` / `I`.
-- System fallbacks: `ui-sans-serif, system-ui, sans-serif` for body; do not use Tahoma/Arial as the written standard.
+- **Body, UI, forms, tables, instructions:** sans-serif only. Serif is forbidden at these sizes.
+- **Display headings ≥24pt / 32px only:** a warm open-geometry serif is allowed. Below that size, use the body sans.
+- Body left-aligned. Justified text is forbidden.
+- Body line-height ≥ 1.5. Display headings 1.2–1.3.
+- Measure 45–65 characters per line. Hard max 75.
+- Paragraph cap: ≤4 visual lines and ≤45 words, then a list or break.
+- Print body ≥ 12pt. Large print ≥ 18pt.
+- Screen layouts remain usable at 200% zoom with no horizontal scroll.
 
-## Typesetting constraints
+There is no contradiction: serif is a display-only exception, never a body face.
 
-- Alignment: `text-align: left` only for body. Justified text is forbidden.
-- Line height: minimum `1.5` for body; `1.2`–`1.3` for display headings.
-- Measure: 45–65 characters per line; hard maximum 75.
-- Paragraph cap: ≤4 visual lines and ≤45 words before a list or break.
-- Print body floor: 12pt. Large Print: 18pt.
-- Screen layouts must remain usable at 200% zoom with no horizontal scroll or clipped text.
+## Suggested faces (not required)
 
-## Intent
+- Display (≥24pt): Fraunces or Lora, or any high-aperture serif.
+- Body: Plus Jakarta Sans or Inter, or any humanist sans with a tall x-height and distinct `1` / `l` / `I`.
+- Fallback: `ui-sans-serif, system-ui, sans-serif`.
 
-Reduce letter blurring, text freezing, and cognitive friction. Typography is an accessibility surface, not decoration.
+Do not treat Tahoma/Arial as the standard. Do not treat the suggested faces as a brand kit.

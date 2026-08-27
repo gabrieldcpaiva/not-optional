@@ -1,12 +1,16 @@
-# Micro-Chunking & Negative Space
+# Micro-chunking
 
-## Rules
+## Law (not optional)
 
-- No continuous body-text block longer than 4 visual lines.
-- Quantified cap before list decomposition: ≤65 characters per line and ≤45 words per paragraph.
-- Longer content must become short paragraphs or bullets.
-- Printable canvases must keep at least 40% empty / negative space.
+| Check | Threshold |
+| --- | --- |
+| Max visual lines per body block | 4 |
+| Max words per body block | 45 |
+| Max characters per line | 65 (hard max 75) |
+| Min empty space on a printable canvas | 40% |
+
+If any threshold is exceeded, split into a shorter paragraph or a list before publish.
 
 ## Intent
 
-Reduce executive overload. This is functional accessibility, not aesthetic minimalism.
+Executive-function support. Deterministic so an agent can fail a block without guessing viewport width.

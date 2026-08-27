@@ -1,14 +1,15 @@
 {
   "name": "not-optional screen tokens",
   "version": "1.0.0",
+  "note": "Example hexes. Swap any values that still meet principles/color-tokens.md and principles/contrast.md.",
   "tokens": {
     "color": {
-      "canvas": { "value": "#F7F3EE", "description": "Paper background (reference; forks may swap equivalent comfort colors)" },
-      "surface": { "value": "#E8D9C8", "description": "Sand surface" },
-      "accent": { "value": "#7A8F7A", "description": "Sage" },
-      "brand": { "value": "#4A5D4E", "description": "Deep Moss" },
-      "divider": { "value": "#DFCDBA", "description": "Warm Edge" },
-      "text": { "value": "#2C2A28", "description": "Ink body text" }
+      "canvas": { "value": "#F7F3EE" },
+      "surface": { "value": "#E8D9C8" },
+      "accent": { "value": "#7A8F7A" },
+      "emphasis": { "value": "#4A5D4E" },
+      "divider": { "value": "#DFCDBA" },
+      "text": { "value": "#2C2A28" }
     },
     "focus": {
       "width": { "value": "3px" },

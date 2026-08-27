@@ -1,21 +1,18 @@
-# Soft Geometry & Pattern Overlays
+# Geometry over hue
 
-## Purpose
+## Law (not optional)
 
-Replace color-only coding with distinct geometric shapes and patterns so CVD users and print/grayscale readers can still separate states.
+- State, category, and progress must remain readable with color removed (grayscale, print, CVD).
+- Pair every hue change with at least one of: distinct shape, pattern fill, or visible text label.
+- Print strokes ≥ 1.5pt (≈2px at 96dpi). Strokes under 1pt are forbidden on printables.
 
-## Core Motifs
+## Generic motifs (examples, not a product pack)
 
-- Pill
-- Nested Arch
-- Stepping Stone
+Use ordinary geometry:
 
-Each motif may use pattern fills (hatching, dots, dashes).
+- rounded rectangle / pill
+- circle / disc
+- triangle / chevron
+- hatch, dots, or dashes as fills
 
-## Print-safe geometry
-
-- Minimum stroke width: 1.5pt (≈2px at 96dpi) on all container motifs.
-- Thin strokes under 1pt are forbidden on printables.
-- Pair every color state with shape, pattern, or label. Never hue alone.
-
-SVG asset files are optional and not required for V1. The rule is the shape + pattern + label, not a proprietary brand pack.
+Do not require a private icon set, named product diagrams, or a brand motif library to satisfy this rule.
