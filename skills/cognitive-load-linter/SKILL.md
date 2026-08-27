@@ -1,21 +1,21 @@
 ---
 name: cognitive-load-linter
-description: Caps paragraphs at 4 lines / 45 words / 65 characters per line and enforces ≥40 percent empty space on printable canvases.
+description: Fail body blocks over 4 lines or 45 words or 65 characters per line. Printable canvas must keep ≥40% empty space.
 ---
 
-# Cognitive Load & Micro-Chunking Linter
+# cognitive-load-linter
 
-## Core Enforcement Rules
+## Load with
 
-- Zero continuous body-text blocks longer than 4 visual lines.
-- Quantified cap: ≤65 characters per line and ≤45 words per paragraph before list decomposition.
-- Convert longer descriptions into short bullets.
-- Every printable canvas keeps ≥40 percent unencumbered space.
+`principles/micro-chunking.md`
 
-## Process
+## Law (once)
 
-1. Ingest copy or layout text.
-2. Measure line length in characters and word count per paragraph.
-3. Flag blocks over 4 lines, 65 characters/line, or 45 words.
-4. Rewrite into short sentences or bullets.
-5. Verify printable negative-space quota.
+| Check | Fail if |
+| --- | --- |
+| Visual lines in one body block | > 4 |
+| Words in one body block | > 45 |
+| Characters per line | > 65 (hard max 75) |
+| Empty space on a printable page | < 40% |
+
+On fail: split into a shorter paragraph or a list. Do not publish the long block.

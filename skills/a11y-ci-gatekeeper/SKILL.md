@@ -1,37 +1,31 @@
 ---
 name: a11y-ci-gatekeeper
-description: Runs automated accessibility regression checks before publishing. Uses axe-core and pa11y-style rules to block contrast, alt-text, focus, and keyboard regressions. Exit 0 pass, exit 1 fail.
+description: Block a release if WCAG 2.1 AA contrast, alt-text, focus, or keyboard checks fail. Optional command: npx pa11y-ci --config .pa11yci.json. Exit 0 pass, 1 fail.
 ---
 
-# Automated Accessibility Regression Tester
+# a11y-ci-gatekeeper
 
-Zero accessibility regressions on production-bound builds.
+## Load with
 
-## Core Enforcement Rules
+`principles/contrast.md` and `.pa11yci.json` when a web URL or HTML build is in context.
 
-- Contrast below WCAG 2.1 AA blocks release (4.5:1 normal text, 3:1 large text and UI).
-- Interactive images missing meaningful alt text block release.
-- Interactive controls without a visible focus indicator block release.
-- Keyboard traps or incomplete keyboard operability on primary flows block release.
-- Missing ARIA on expandables, broken heading order, and hue-only state indicators block unless waived in writing.
+## Law (once)
 
-## Inputs and outputs
+Fail closed if any of these are true:
 
-- Input: built static directory or local URL.
-- Output: `./reports/a11y-report.json` when the runner supports it.
-- Exit `0` = pass. Exit `1` = violation.
+- Text contrast below WCAG 2.1 AA (4.5:1 normal, 3:1 large text / UI)
+- Interactive image missing meaningful `alt`
+- Interactive control with no visible `:focus-visible` indicator
+- Keyboard trap or primary flow not completable with Tab / Shift+Tab / Enter / Space / Escape
 
-## Execution
+## Execution (optional tooling)
 
 ```bash
 npx pa11y-ci --config .pa11yci.json
 ```
 
-Use root `.pa11yci.json`. Standard: WCAG2AA. Runners: axe + htmlcs.
-This repo does not require npm install to use the skill. The command is optional local tooling.
+Exit `0` = pass. Exit `1` = fail. No npm app ships in this repo.
 
-## Acceptance
+## Output
 
-- [ ] Scan completes against listed URLs.
-- [ ] WCAG 2.1 AA violations = 0.
-- [ ] Missing alt, broken ARIA, and contrast failures fail the gate.
+List each violation with the selector or URL. Do not ship if any critical item remains.

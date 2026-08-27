@@ -1,23 +1,23 @@
 ---
 name: dual-format-a11y
-description: Splits web a11y from print a11y. Names dual artifacts and keeps ARIA out of PDFs.
+description: Split web rules from print rules. No ARIA or focus logic in PDFs. Optional artifact names *_Screen_Comfort.pdf and *_Print_Monochrome_HighContrast.pdf.
 ---
 
-# Dual-Format Accessibility Workflows
+# dual-format-a11y
 
-## Core Principle
+## Load with
 
-Web a11y and print a11y solve different problems. Never leak ARIA, live regions, or focus management into print PDFs.
+`principles/tokens.screen.json` for web. `principles/tokens.print-monochrome.json` for print. `principles/color-tokens.md`.
 
-## Artifact names
+## Law (once)
 
-- `*_Screen_Comfort.pdf` for screen-comfort review copies
-- `*_Print_Monochrome_HighContrast.pdf` for home-print masters
+Web ≠ print.
 
-Print body contrast target ≥7:1. Use `principles/tokens.print-monochrome.json` for print builds and `principles/tokens.screen.json` for web.
+- Web may use ARIA, `:focus-visible`, live regions.
+- Print may not. Print is geometry, type size, ink, and margins (safe margin = 12.7mm / 0.5in).
+- Print body contrast target ≥ 7:1. Do not use `#000000` on `#FFFFFF` for body text.
 
-## Process
+If a printable is emitted, prefer two files:
 
-1. Split the spec into web-only and print-only requirements.
-2. Emit both artifact names when a printable is produced.
-3. Verify no web-only markup remains in the print file.
+- `*_Screen_Comfort.pdf`
+- `*_Print_Monochrome_HighContrast.pdf`

@@ -1,21 +1,22 @@
 ---
 name: print-scale-inspector
-description: Enforces ≥12pt body (18pt Large Print), left alignment, ≥1.4 line-height, 12.7mm safe margins, and vector text on print PDFs.
+description: Print body ≥12pt (≥18pt large print), left-align only, line-height ≥1.4, safe margin ≥12.7mm (0.5in) on A4 and US Letter, vector text only.
 ---
 
-# Physical Print Scale & Legibility Inspector
+# print-scale-inspector
 
-## Core Enforcement Rules
+## Load with
 
-- Body ≥12pt. Large Print ≥18pt.
-- Body left-aligned only. Justified text forbidden.
-- Line-height ≥1.4× body size (prefer 1.5).
-- Safe margin ≥12.7mm on all four sides.
-- Body text must be real/vector text, not rasterized type.
+`principles/typography.md` and `principles/contrast.md`
 
-## Pre-flight
+## Law (once)
 
-1. Ingest PDF or print master.
-2. Check point size, line-height, alignment, and bounding-box distance to each edge.
-3. Flag content inside the 12.7mm zone.
-4. Report exact numeric fixes.
+- Body ≥ 12pt. Large print ≥ 18pt.
+- Body `text-align: left` only. Justified body is forbidden.
+- Line-height ≥ 1.4× (prefer 1.5).
+- Safe margin: no content inside 12.7mm (0.5in) of any edge on A4 and US Letter.
+- Body must be vector/selectable text, not a raster of type.
+
+## Output
+
+Name the failing edge, point size, or alignment. Give the numeric fix.
