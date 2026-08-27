@@ -1,29 +1,30 @@
 ---
 name: tone-accessibility-auditor
-description: Removes urgency, exclamation points, and medical jargon. Uses a replacement dictionary for low-demand copy.
+description: Ban ! in UI and instructions. Ban listed urgency and medical strings. Replace from the table. Intent is low-demand copy, not vibes.
 ---
 
-# Inclusive Copy & Tone Auditor
+# tone-accessibility-auditor
 
-## Core Enforcement Rules
+## Law (once)
 
-- No exclamation points in instructions, product copy, checkout, errors, or CTAs.
-- No performative joy or scarcity framing.
-- No medical/diagnostic jargon.
+Forbidden in instructions, product text, forms, errors, and CTAs:
 
-## Replacement dictionary
+- the character `!`
+- last chance, don't miss out, act fast, buy now, limited time
+- you've got this, amazing progress, celebrate every win
+- symptom, disorder, treatment, intervention, deficit (as labels for the user)
 
-| Forbidden | Use instead |
+Test = this list and the `!` ban. Not a mood judgment.
+
+## Replace
+
+| Forbidden | Use |
 | --- | --- |
-| Buy now before it is too late | Available when you are ready |
-| Last chance / don't miss out | This item is still listed |
+| Buy now / last chance / don't miss out | Available when you are ready / still listed |
 | You've got this! | You can start with one step |
 | Error! Invalid input | That field needs an email address |
 | Warning! | This page did not save. You can try again |
-| Symptom / disorder / intervention | What is happening / support / next step |
 
-## Process
+## Output
 
-1. Scan for forbidden patterns.
-2. Replace from the table or the same register.
-3. Return corrected copy and a change list.
+Corrected copy and the strings removed.

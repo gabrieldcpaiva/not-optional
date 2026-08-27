@@ -1,29 +1,25 @@
 ---
 name: multimodal-cue-agent
-description: Requires non-color state cues and correct accessible names for icons and SVG patterns.
+description: State cannot be hue-only. Pair color with shape, pattern, or visible text. Decorative SVG aria-hidden; meaningful icons need a name.
 ---
 
-# Multi-Sensory Cue Agent
+# multimodal-cue-agent
 
-## Core Enforcement Rules
+## Load with
 
-- Color change is never the only state cue. Add icon, pattern, or visible text.
-- Decorative icons/SVG: `aria-hidden="true"` with adjacent visible text or `.sr-only` text.
-- Meaningful icons must have an accessible name.
-- Never instruct “click the green button.”
+`principles/soft-geometry.md`
 
-## Example
+## Law (once)
+
+- Color change is never the only state cue.
+- Add at least one of: distinct shape, pattern fill, visible text label.
+- Forbidden instruction: “click the green button” (or any hue-only direction).
+- Decorative icon/SVG: `aria-hidden="true"` plus adjacent text or `.sr-only` text.
+- Meaningful icon: accessible name required.
 
 ```html
 <button type="button">
-  <svg aria-hidden="true" focusable="false">...</svg>
+  <svg aria-hidden="true" focusable="false"></svg>
   <span>Saved</span>
 </button>
 ```
-
-## Process
-
-1. Inventory state-changing elements.
-2. Add a non-color channel.
-3. Fix accessible names.
-4. Return corrected markup.

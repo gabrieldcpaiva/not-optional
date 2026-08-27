@@ -1,20 +1,20 @@
 ---
 name: alt-audio-synthesizer
-description: Builds ~30-second audio descriptions plus QR and a full-text transcript fallback for printables.
+description: For each printable, write a ~30s layout narration (70–90 words), a full-text transcript, and QR specs: ECC M or Q, ≥15×15mm, inside the 12.7mm safe margin.
 ---
 
-# Screen-Reader Audio Preview Synthesizer
+# alt-audio-synthesizer
 
-## Core Enforcement Rules
+## Load with
 
-- Every printable includes a QR linking to audio plus a full-text transcript page for users without a camera or mobile device.
-- QR: error correction Level M or Q, minimum 15×15mm, high contrast, inside the 12.7mm safe margin, not clipped.
-- Narration ~30 seconds (70–90 words): layout, zones, sequence, plain language.
-- Complex diagrams get spoken alt-text.
-- Tone stays low-demand. No exclamation points or medical jargon.
+`principles/print-scale` numbers: safe margin = 12.7mm (0.5in) on A4 and US Letter.
 
-## Process
+## Law (once)
 
-1. Ingest the sheet layout.
-2. Draft narration and transcript.
-3. Specify QR size, ECC level, placement, and fallback URL.
+- Output three things: spoken script, full-text transcript (no phone required), QR placement.
+- Script length: ~30 seconds, 70–90 words. Layout order, zones, how to use. No `!`. No medical terms.
+- QR: error correction Level M or Q, ≥15×15mm, high contrast, fully inside the 12.7mm safe margin.
+
+## Output
+
+Script, transcript, QR size, ECC level, corner, fallback URL.
