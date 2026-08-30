@@ -1,27 +1,22 @@
-# STATUS: PARKED
+# Status: V1 frozen
 
 Date: 2026-08-30
-Owner: Gabriel
 
-This repository is frozen.
+This is the V1 freeze. The learning loop on this repo is closed.
 
-It is not incomplete work waiting for you.
-It is not a backlog.
-It is not a nightly obligation.
+In the tree:
 
-What is already in the tree is the whole product for now:
+- Public repo, quiet
+- Stance without shop / brand-as-law
+- Dual license (MIT software, CC BY 4.0 docs and principles)
+- Principles + token JSON (keys first, hex as examples)
+- Nine skills with numbers, one ban per file, no clickable divs
 
-- principles and token files
-- nine skill briefs
-- MIT + CC BY 4.0 license
-- optional `.pa11yci.json`
+Not in scope for V1:
 
-What is **not** happening:
+- Focus CSS snippet file, SVG pack, GitHub Action, speech scripts
+- Stranger test against a cheap model
+- Profile / post visibility
+- Soft Start brand or private SSS docs
 
-- no more audit loops
-- no GitHub Actions required
-- no skill-by-skill remediation list
-- no bot roster attached to this repo
-
-Resume only if Gabriel writes `unpark` in a new commit message.
-Until then, do not open issues, do not plan sprints, do not "just finish the last 20%".
+Resume only if Gabriel writes `unfreeze` in a commit message.
