@@ -1,4 +1,4 @@
-> **PARKED — 2026-08-30.** This repo is frozen. See `STATUS.md`. Do not treat missing CI, extra scripts, or audit leftovers as open tasks.
+> **Status: V1 frozen.** See `STATUS.md`. Optional extras (CI, SVG pack, speech scripts) are not required.
 
 # not-optional
 
