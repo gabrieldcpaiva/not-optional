@@ -1,3 +1,5 @@
+> **PARKED — 2026-08-30.** This repo is frozen. See `STATUS.md`. Do not treat missing CI, extra scripts, or audit leftovers as open tasks.
+
 # not-optional
 
 Accessibility is not a request.
