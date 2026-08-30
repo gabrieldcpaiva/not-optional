@@ -40,13 +40,16 @@ It is for any surface a human has to read, tap, or print. Not for one brand, one
 3. The `SKILL.md` files you need
 4. Fail closed on critical violations
 
-Optional local HTML scan:
+Optional local HTML scan. Prerequisites: Node.js 18 or newer, Chrome or Chromium, npm access.
+
+1. Add your URLs to `.pa11yci.json` under `"urls"` (example: `"http://localhost:8080/"`).
+2. Serve your site, then run:
 
 ```bash
 npx pa11y-ci --config .pa11yci.json
 ```
 
-Exit `0` = pass. Exit `1` = fail. Optional tool, not a hidden dependency.
+Exit `0` = pass. Any non-zero exit = fail. pa11y uses exit `2` for accessibility errors and `1` for a technical fault, so test for non-zero, not for `1`. Optional tool, not a hidden dependency.
 
 ### License
 

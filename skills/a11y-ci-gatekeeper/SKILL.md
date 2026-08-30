@@ -1,6 +1,6 @@
 ---
 name: a11y-ci-gatekeeper
-description: Block a release if WCAG 2.1 AA contrast, alt-text, focus, or keyboard checks fail. Optional command: npx pa11y-ci --config .pa11yci.json. Exit 0 pass, 1 fail.
+description: Block a release if WCAG 2.1 AA contrast, alt-text, focus, or keyboard checks fail. Optional command: npx pa11y-ci --config .pa11yci.json. Exit 0 pass, any non-zero fail (2 = accessibility errors, 1 = technical fault).
 ---
 
 # a11y-ci-gatekeeper
@@ -24,7 +24,7 @@ Fail closed if any of these are true:
 npx pa11y-ci --config .pa11yci.json
 ```
 
-Exit `0` = pass. Exit `1` = fail. No npm app ships in this repo.
+Exit `0` = pass. Any non-zero exit = fail. pa11y uses exit `2` for accessibility errors and `1` for a technical fault, so test for non-zero, not for `1`. No npm app ships in this repo.
 
 ## Output
 

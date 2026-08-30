@@ -1,12 +1,12 @@
 {
   "name": "not-optional screen tokens",
   "version": "1.0.0",
-  "note": "Example hexes. Swap any values that still meet principles/color-tokens.md and principles/contrast.md.",
+  "note": "Example hexes. Swap any values that still meet principles/color-tokens.md and principles/contrast.md. accent is for UI and graphics only, never normal text; it must pass 3:1 on canvas and surface.",
   "tokens": {
     "color": {
       "canvas": { "value": "#F7F3EE" },
       "surface": { "value": "#E8D9C8" },
-      "accent": { "value": "#7A8F7A" },
+      "accent": { "value": "#5F7360" },
       "emphasis": { "value": "#4A5D4E" },
       "divider": { "value": "#DFCDBA" },
       "text": { "value": "#2C2A28" }

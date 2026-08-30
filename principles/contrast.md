@@ -4,7 +4,7 @@
 
 Do not set body text to `#000000` on `#FFFFFF`. That pair is high ratio and still harmful: it produces visual vibration and text freezing for many dyslexic and fatigued readers.
 
-Use off-black text on off-white canvas on screens. Example only: `#2C2A28` on `#F7F3EE` (≈13.5:1).
+Use off-black text on off-white canvas on screens. Example only: `#2C2A28` on `#F7F3EE` (12.9:1).
 
 ## Screen (WCAG 2.1 AA)
 

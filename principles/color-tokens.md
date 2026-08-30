@@ -14,6 +14,7 @@ principles/tokens.print-monochrome.json
 - Never encode state with hue alone.
 - Screen body contrast ≥ WCAG 2.1 AA (4.5:1 normal text).
 - Print body contrast ≥ 7:1 on cheap inkjet output.
+- `color.accent` is for UI components and graphics only. It must pass ≥3:1 against `color.canvas` and `color.surface`. Never use it for normal text; use `color.text` or `color.emphasis`.
 
 ## Token keys (stable)
 
