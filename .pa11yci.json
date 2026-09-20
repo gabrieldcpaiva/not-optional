@@ -3,10 +3,7 @@
     "standard": "WCAG2AA",
     "runners": ["axe", "htmlcs"],
     "level": "error",
-    "timeout": 30000,
-    "chromeLaunchConfig": {
-      "args": ["--no-sandbox", "--disable-setuid-sandbox"]
-    }
+    "timeout": 30000
   },
   "urls": []
 }
