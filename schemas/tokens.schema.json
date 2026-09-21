@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "not-optional Design Tokens Schema",
+  "description": "Validation schema for not-optional color and focus tokens. Enforces required keys to ensure visual accessibility compliance.",
+  "type": "object",
+  "required": ["name", "version", "tokens"],
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "note": {
+      "type": "string"
+    },
+    "tokens": {
+      "type": "object",
+      "required": ["color"],
+      "properties": {
+        "color": {
+          "type": "object",
+          "description": "Color definitions. Canvas, surface, and text are strictly required to ensure readable environments.",
+          "required": ["canvas", "surface", "text"],
+          "patternProperties": {
+            "^[a-zA-Z0-9_-]+$": {
+              "type": "object",
+              "required": ["value"],
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "pattern": "^#(?:[0-9a-fA-F]{3}){1,2}$",
+                  "description": "Hexadecimal color value."
+                }
+              }
+            }
+          }
+        },
+        "focus": {
+          "type": "object",
+          "description": "Focus ring definitions. Required for screen tokens. Must ensure 3px solid, 2px offset.",
+          "required": ["width", "style", "color", "offset"],
+          "properties": {
+            "width": {
+              "type": "object",
+              "required": ["value"],
+              "properties": { "value": { "type": "string" } }
+            },
+            "style": {
+              "type": "object",
+              "required": ["value"],
+              "properties": { "value": { "type": "string" } }
+            },
+            "color": {
+              "type": "object",
+              "required": ["value"],
+              "properties": { "value": { "type": "string" } }
+            },
+            "offset": {
+              "type": "object",
+              "required": ["value"],
+              "properties": { "value": { "type": "string" } }
+            }
+          }
+        }
+      }
+    }
+  }
+}
