@@ -1,13 +1,22 @@
 {
+  "$schema": "../schemas/tokens.schema.json",
   "name": "not-optional print monochrome tokens",
   "version": "1.0.0",
   "note": "Example hexes. Body text is ink-dark, not #000 on #FFF.",
   "tokens": {
     "color": {
-      "canvas": { "value": "#FFFFFF" },
-      "surface": { "value": "#F0F0F0" },
-      "line": { "value": "#2C2A28" },
-      "text": { "value": "#2C2A28" }
+      "canvas": {
+        "value": "#FFFFFF"
+      },
+      "surface": {
+        "value": "#F0F0F0"
+      },
+      "line": {
+        "value": "#2C2A28"
+      },
+      "text": {
+        "value": "#2C2A28"
+      }
     }
   }
 }
