@@ -359,44 +359,23 @@ Agents: Refer to the raw JSON files for exact values, but use these as a structu
 ### Screen Tokens (principles/tokens.screen.json)
 ```json
 {
-  "$schema": "../schemas/tokens.schema.json",
   "name": "not-optional screen tokens",
   "version": "1.0.0",
   "note": "Example hexes. Swap any values that still meet principles/color-tokens.md and principles/contrast.md.",
   "tokens": {
     "color": {
-      "canvas": {
-        "value": "#F7F3EE"
-      },
-      "surface": {
-        "value": "#E8D9C8"
-      },
-      "accent": {
-        "value": "#7A8F7A"
-      },
-      "emphasis": {
-        "value": "#4A5D4E"
-      },
-      "divider": {
-        "value": "#DFCDBA"
-      },
-      "text": {
-        "value": "#2C2A28"
-      }
+      "canvas": { "value": "#F7F3EE" },
+      "surface": { "value": "#E8D9C8" },
+      "accent": { "value": "#7A8F7A" },
+      "emphasis": { "value": "#4A5D4E" },
+      "divider": { "value": "#DFCDBA" },
+      "text": { "value": "#2C2A28" }
     },
     "focus": {
-      "width": {
-        "value": "3px"
-      },
-      "style": {
-        "value": "solid"
-      },
-      "color": {
-        "value": "#4A5D4E"
-      },
-      "offset": {
-        "value": "2px"
-      }
+      "width": { "value": "3px" },
+      "style": { "value": "solid" },
+      "color": { "value": "#4A5D4E" },
+      "offset": { "value": "2px" }
     }
   }
 }
@@ -405,24 +384,15 @@ Agents: Refer to the raw JSON files for exact values, but use these as a structu
 ### Print Tokens (principles/tokens.print-monochrome.json)
 ```json
 {
-  "$schema": "../schemas/tokens.schema.json",
   "name": "not-optional print monochrome tokens",
   "version": "1.0.0",
   "note": "Example hexes. Body text is ink-dark, not #000 on #FFF.",
   "tokens": {
     "color": {
-      "canvas": {
-        "value": "#FFFFFF"
-      },
-      "surface": {
-        "value": "#F0F0F0"
-      },
-      "line": {
-        "value": "#2C2A28"
-      },
-      "text": {
-        "value": "#2C2A28"
-      }
+      "canvas": { "value": "#FFFFFF" },
+      "surface": { "value": "#F0F0F0" },
+      "line": { "value": "#2C2A28" },
+      "text": { "value": "#2C2A28" }
     }
   }
 }
