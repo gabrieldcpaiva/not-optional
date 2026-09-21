@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baseline Print Example - not-optional</title>
+    <style>
+        /*
+         * not-optional Print Baseline
+         * Implements tokens from principles/tokens.print-monochrome.json
+         * Implements laws from skills/print-scale-inspector, skills/alt-audio-synthesizer
+         *
+         * No ARIA, no focus logic. Print is pure physical geometry.
+         */
+
+        :root {
+            /* Print Monochrome High Contrast Tokens */
+            --color-canvas: #FFFFFF;
+            --color-surface: #F0F0F0;
+            --color-line: #2C2A28;
+            --color-text: #2C2A28; /* Ink-dark, not pure #000 */
+
+            /* Physical Measurements */
+            --safe-margin: 12.7mm; /* 0.5in safe margin for A4 / US Letter */
+            --min-stroke: 1.5pt; /* Strokes under 1pt are forbidden on printables */
+        }
+
+        /* Page Media Rules */
+        @page {
+            /* Example size: US Letter. Change to A4 as needed. */
+            size: letter portrait;
+            /* Browser's default print margins are overridden.
+               We enforce our safe margin explicitly in the body layout. */
+            margin: 0;
+        }
+
+        body {
+            /* Base Physical Typography */
+            font-family: "Plus Jakarta Sans", "Inter", ui-sans-serif, system-ui, sans-serif;
+            font-size: 12pt; /* Body ≥ 12pt */
+            line-height: 1.5; /* Line-height ≥ 1.4x (prefer 1.5) */
+            text-align: left; /* Justified body is forbidden */
+
+            /* Canvas settings */
+            background-color: var(--color-canvas);
+            color: var(--color-text);
+
+            /* Physical Dimensions for standard printing */
+            width: 8.5in;
+            height: 11in;
+            margin: 0 auto;
+            position: relative;
+            box-sizing: border-box;
+
+            /* Enforce safe margins inside the paper boundary */
+            padding: var(--safe-margin);
+
+            /* Ensure text is rendered as vector/selectable in PDF outputs */
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+        /* Document Structure & Empty Space */
+        .page-content {
+            /* Cognitive Load Linter: Printable canvas must keep ≥40% empty space.
+               Using a strict layout grid to ensure whitespace. */
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            grid-template-rows: auto 1fr auto;
+            gap: 24pt;
+            height: 100%;
+        }
+
+        header {
+            grid-column: 1 / -1;
+            border-bottom: var(--min-stroke) solid var(--color-line);
+            padding-bottom: 12pt;
+            margin-bottom: 12pt;
+        }
+
+        main {
+            grid-column: 1;
+        }
+
+        aside {
+            grid-column: 2;
+            background-color: var(--color-surface);
+            padding: 12pt;
+            /* Geometric distinction without hue reliance */
+            border: var(--min-stroke) solid var(--color-line);
+        }
+
+        footer {
+            grid-column: 1 / -1;
+            border-top: var(--min-stroke) solid var(--color-line);
+            padding-top: 12pt;
+            font-size: 10pt; /* Auxiliary text, not main body */
+        }
+
+        /* Typography overrides */
+        h1 {
+            font-family: "Fraunces", "Lora", serif; /* Display serif allowed for >= 24pt */
+            font-size: 24pt;
+            line-height: 1.2;
+            margin: 0;
+        }
+
+        h2 {
+            font-size: 16pt;
+            margin-top: 18pt;
+            margin-bottom: 9pt;
+        }
+
+        p {
+            margin-top: 0;
+            margin-bottom: 12pt;
+            /* Max 65 characters per line enforced by grid column width constraint */
+            max-width: 65ch;
+        }
+
+        /* Audio Synthesizer QR Block */
+        .qr-block {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8pt;
+        }
+
+        .qr-code {
+            /* QR Specs: >= 15x15mm, ECC M or Q, inside safe margin */
+            width: 20mm;
+            height: 20mm;
+            background-color: var(--color-text);
+            /* In a real implementation, this is an actual SVG QR code */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-canvas);
+            font-size: 8pt;
+            font-weight: bold;
+        }
+
+        .qr-label {
+            font-weight: 600;
+        }
+
+        /* Print-specific media queries to hide screen UI */
+        @media screen {
+            body {
+                /* Render a fake paper shadow for on-screen viewing of this example */
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                margin-top: 2rem;
+                margin-bottom: 2rem;
+            }
+            .print-only-warning {
+                position: absolute;
+                top: -2rem;
+                left: 0;
+                font-size: 10pt;
+                color: #666;
+            }
+        }
+        @media print {
+            .print-only-warning {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="print-only-warning">This is a physical document preview (8.5x11 inches). Ensure browser scale is 100% and margins are set to 'none' when printing.</div>
+
+    <div class="page-content">
+        <header>
+            <h1>Emergency Exit Procedures</h1>
+        </header>
+
+        <main>
+            <h2>Evacuation Route</h2>
+            <!-- Micro-chunking: <4 visual lines, <45 words -->
+            <p>
+                Leave the building immediately using the nearest marked exit.
+                Do not use elevators during a fire or structural emergency.
+                Keep a low profile if you encounter smoke.
+            </p>
+
+            <h2>Assembly Point</h2>
+            <p>
+                Gather at the North Parking Lot near the main gate.
+                Wait for a designated safety officer to verify your presence
+                before leaving the property.
+            </p>
+
+            <h2>Tone Auditor Compliance</h2>
+            <p>
+                Instructions are written with low-demand copy.
+                There are no exclamation marks.
+                There is no urgency-inducing language.
+            </p>
+        </main>
+
+        <aside>
+            <!-- Audio Synthesizer Output -->
+            <div class="qr-block">
+                <span class="qr-label">Scan for Audio & Text</span>
+                <div class="qr-code">QR (20x20mm)</div>
+                <p style="font-size: 10pt; max-width: 100%;">
+                    <strong>Transcript:</strong><br>
+                    This document outlines emergency exits.
+                    The main text is on the left. The assembly point is the North Parking Lot.
+                </p>
+            </div>
+        </aside>
+
+        <footer>
+            Document Ref: EEP-2026-V1 &bull; Printed from a compliant system.
+        </footer>
+    </div>
+</body>
+</html>

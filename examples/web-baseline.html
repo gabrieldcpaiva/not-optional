@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baseline Web Example - not-optional</title>
+    <style>
+        /*
+         * not-optional Web Baseline
+         * Implements tokens from principles/tokens.screen.json
+         * Implements laws from principles/typography.md and principles/micro-chunking.md
+         */
+
+        :root {
+            /* Screen Tokens */
+            --color-canvas: #F7F3EE;
+            --color-surface: #E8D9C8;
+            --color-accent: #7A8F7A;
+            --color-emphasis: #4A5D4E;
+            --color-divider: #DFCDBA;
+            --color-text: #2C2A28;
+
+            /* Focus Tokens */
+            --focus-width: 3px;
+            --focus-style: solid;
+            --focus-color: #4A5D4E;
+            --focus-offset: 2px;
+        }
+
+        /* Base Typography & Canvas */
+        body {
+            background-color: var(--color-canvas);
+            color: var(--color-text);
+            /* Body: sans-serif only. Fallback chain defined in typography.md */
+            font-family: "Plus Jakarta Sans", "Inter", ui-sans-serif, system-ui, sans-serif;
+            font-size: 1rem;
+            line-height: 1.5; /* Line-height ≥ 1.5 */
+            text-align: left; /* Justified text is forbidden */
+
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Micro-chunking: Executive-function support */
+        .container {
+            /* Max characters per line: 65-75 */
+            max-width: 65ch;
+            width: 100%;
+        }
+
+        /* Headings: Sequential, Display headings allowed to be serif */
+        h1, h2, h3 {
+            color: var(--color-emphasis);
+        }
+
+        h1 {
+            /* Display headings ≥24pt (32px) may use serif */
+            font-family: "Fraunces", "Lora", serif;
+            font-size: 2rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            font-family: "Fraunces", "Lora", serif;
+            font-size: 1.5rem;
+            line-height: 1.3;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--color-divider);
+            padding-bottom: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            /*
+             * Note to authors: Ensure manual enforcement of paragraph caps:
+             * ≤4 visual lines and ≤45 words.
+             */
+        }
+
+        /* Native HTML Forms & Focus Flow */
+        .surface-card {
+            background-color: var(--color-surface);
+            padding: 1.5rem;
+            border-radius: 8px; /* Generic geometry */
+            margin-bottom: 2rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        input[type="text"],
+        input[type="email"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--color-divider);
+            border-radius: 4px;
+            background-color: var(--color-canvas);
+            color: var(--color-text);
+            font-family: inherit;
+            margin-bottom: 1.5rem;
+            box-sizing: border-box;
+        }
+
+        /* Strict Focus Rule (focus-flow-tester) */
+        :focus-visible {
+            outline: var(--focus-width) var(--focus-style) var(--focus-color);
+            outline-offset: var(--focus-offset);
+        }
+
+        /* No outline:none without replacement */
+        *:focus {
+            /* Fallback for older browsers, overridden by :focus-visible if supported */
+            outline: var(--focus-width) var(--focus-style) var(--focus-color);
+            outline-offset: var(--focus-offset);
+        }
+        *:focus:not(:focus-visible) {
+            outline: none;
+        }
+
+        /* Interactive Elements: Native First */
+        button {
+            background-color: var(--color-emphasis);
+            color: var(--color-canvas);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-family: inherit;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        button svg {
+            /* Multimodal cue: geometry paired with text */
+            width: 1.25rem;
+            height: 1.25rem;
+            fill: currentColor;
+        }
+
+        details {
+            background-color: var(--color-surface);
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        summary {
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--color-emphasis);
+        }
+
+        summary:focus-visible {
+            outline: var(--focus-width) var(--focus-style) var(--focus-color);
+            outline-offset: var(--focus-offset);
+        }
+
+        /* Screen Reader Only Utility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- aria-dom-architect: Sequential headings. Native HTML first. One h1. -->
+        <h1>Account Setup</h1>
+
+        <!-- cognitive-load-linter: <45 words, <4 visual lines -->
+        <p>
+            Welcome to the system. You can establish your profile preferences here.
+            These settings control how information is presented to you across the interface.
+        </p>
+
+        <!-- tone-accessibility-auditor: No '!', no urgency (e.g. 'Act fast'). Low-demand copy. -->
+        <h2>Contact Information</h2>
+
+        <div class="surface-card">
+            <!-- Native HTML form elements instead of ARIA constructs -->
+            <form action="#submit">
+                <label for="email">Email address</label>
+                <!-- Required field implies validation; tone-auditor specifies error handling tone -->
+                <input type="email" id="email" name="email" aria-describedby="email-hint">
+                <p id="email-hint" style="font-size: 0.875rem; margin-top: -1rem; margin-bottom: 1.5rem;">
+                    We use this to send you account access links.
+                </p>
+
+                <!-- multimodal-cue-agent: Color change is never the only state cue. Added SVG shape. -->
+                <button type="submit">
+                    <!-- Decorative SVG: aria-hidden="true" -->
+                    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+                        <path d="M5 12l5 5l10 -10" stroke="currentColor" stroke-width="2" fill="none"/>
+                    </svg>
+                    <span>Save profile</span>
+                </button>
+            </form>
+        </div>
+
+        <h2>Frequently Asked Questions</h2>
+
+        <!-- aria-dom-architect: Expand/collapse native element -->
+        <details>
+            <summary>How do I change my layout later?</summary>
+            <p>
+                You can return to this page at any time. Your preferences are saved immediately
+                when you select a new option.
+            </p>
+        </details>
+
+    </div>
+</body>
+</html>
