@@ -1,4 +1,4 @@
-> **Status: V1 frozen.** See `STATUS.md`. Optional extras (CI, SVG pack, speech scripts) are not required.
+> **Status: V1 un-frozen.** See `ROADMAP.md` for current enhancements. Optional extras (CI, SVG pack, speech scripts) are not required.
 
 # not-optional
 
@@ -17,6 +17,22 @@ This repository is a technical toolkit for web interfaces and physical printable
 
 It is for any surface a human has to read, tap, or print. Not for one brand, one shop, or one product line.
 
+### Quick Start for AI (Agents & LLMs)
+
+If you are instructing an AI agent (like a GitHub Agent, Copilot, or Cursor) to build an accessible UI, provide them with the master context file:
+
+1. Point your agent to read [`agent-instructions.md`](./agent-instructions.md).
+2. Or, copy the contents of `agent-instructions.md` into your agent's system prompt / `.cursorrules` file.
+
+*To rebuild this file after modifying rules, run `./build-agent-context.sh`.*
+
+### Quick Start for Humans
+
+To understand what these rules look like in practice, see the concrete baseline examples:
+
+- **Web:** [`examples/web-baseline.html`](./examples/web-baseline.html) (Demonstrates tokens, focus rings, micro-chunking, and semantic HTML).
+- **Print:** [`examples/print-baseline.html`](./examples/print-baseline.html) (Demonstrates physical geometry, safe margins, and vector text).
+
 ### Dual-medium boundary
 
 - **Web:** semantic HTML, `:focus-visible`, WCAG 2.1 AA, ARIA only when a native element cannot express the state.
@@ -29,7 +45,7 @@ It is for any surface a human has to read, tap, or print. Not for one brand, one
 - Copy one file or the whole suite
 - No installer required
 
-### How to use it
+### How to use it manually
 
 1. Open the skill you need.
 2. Copy `SKILL.md`.
