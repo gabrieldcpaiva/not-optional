@@ -24,6 +24,24 @@ If you are instructing an AI agent (like a GitHub Agent, Copilot, or Cursor) to 
 1. Point your agent to read [`agent-instructions.md`](./agent-instructions.md).
 2. Or, copy the contents of `agent-instructions.md` into your agent's system prompt / `.cursorrules` file.
 
+- **Direct Link for Remote Agents**: Provide the raw GitHub URL so web-browsing agents (ChatGPT, Claude, Gemini) can ingest the master rules in one turn:
+  `https://raw.githubusercontent.com/gabrieldcpaiva/not-optional/main/agent-instructions.md`
+- **1-Line CLI Drop-In**: Add `curl` snippets for terminal and IDE agents (Cursor, Windsurf, Claude Code, Aider):
+  ```bash
+  # Download directly as Cursor rules
+  curl -fsSL https://raw.githubusercontent.com/gabrieldcpaiva/not-optional/main/agent-instructions.md -o .cursorrules
+
+  # Or append to existing agent context
+  curl -fsSL https://raw.githubusercontent.com/gabrieldcpaiva/not-optional/main/agent-instructions.md >> .agent-rules.md
+  ```
+
+## Agent Skills Registry Command
+For systems adhering to the agentskills.io specification:
+
+```bash
+npx skills add gabrieldcpaiva/not-optional
+```
+
 *To rebuild this file after modifying rules, run `./build-agent-context.sh`.*
 
 ### Quick Start for Humans
