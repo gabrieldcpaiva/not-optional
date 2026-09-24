@@ -1,5 +1,3 @@
-> **Status: V1 un-frozen.** See `ROADMAP.md` for current enhancements. Optional extras (CI, SVG pack, speech scripts) are not required.
-
 # not-optional
 
 Accessibility is not a request.
