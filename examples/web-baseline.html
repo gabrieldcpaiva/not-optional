@@ -15,7 +15,7 @@
             /* Screen Tokens */
             --color-canvas: #F7F3EE;
             --color-surface: #E8D9C8;
-            --color-accent: #7A8F7A;
+            --color-accent: #5F735F;
             --color-emphasis: #4A5D4E;
             --color-divider: #DFCDBA;
             --color-text: #2C2A28;
@@ -99,7 +99,8 @@
         input[type="email"] {
             width: 100%;
             padding: 0.75rem;
-            border: 1px solid var(--color-divider);
+            /* Field edge needs ≥3:1 against canvas and surface (WCAG 1.4.11) */
+            border: 1px solid var(--color-emphasis);
             border-radius: 4px;
             background-color: var(--color-canvas);
             color: var(--color-text);
