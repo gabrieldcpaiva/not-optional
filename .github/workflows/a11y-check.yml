@@ -21,7 +21,7 @@ jobs:
         node-version: '20'
 
     - name: Install dependencies
-      run: npm ci || npm install pa11y-ci --no-save
+      run: npm install --no-save pa11y-ci
 
     # In a real project, you would build the site and serve it locally before running pa11y,
     # or point it at specific static files. Here we test our baseline examples.

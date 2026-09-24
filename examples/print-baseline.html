@@ -38,7 +38,7 @@
             /* Base Physical Typography */
             font-family: "Plus Jakarta Sans", "Inter", ui-sans-serif, system-ui, sans-serif;
             font-size: 12pt; /* Body ≥ 12pt */
-            line-height: 1.5; /* Line-height ≥ 1.4x (prefer 1.5) */
+            line-height: 1.5; /* Line-height ≥ 1.5 */
             text-align: left; /* Justified body is forbidden */
 
             /* Canvas settings */
@@ -94,7 +94,7 @@
             grid-column: 1 / -1;
             border-top: var(--min-stroke) solid var(--color-line);
             padding-top: 12pt;
-            font-size: 10pt; /* Auxiliary text, not main body */
+            font-size: 12pt; /* Print body ≥ 12pt, footer included */
         }
 
         /* Typography overrides */
@@ -204,7 +204,7 @@
             <div class="qr-block">
                 <span class="qr-label">Scan for Audio & Text</span>
                 <div class="qr-code">QR (20x20mm)</div>
-                <p style="font-size: 10pt; max-width: 100%;">
+                <p style="max-width: 100%;">
                     <strong>Transcript:</strong><br>
                     This document outlines emergency exits.
                     The main text is on the left. The assembly point is the North Parking Lot.
