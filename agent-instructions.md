@@ -44,7 +44,7 @@ Hex values in the JSON are a **worked example** of a low-saturation warm screen 
 
 Do not set body text to `#000000` on `#FFFFFF`. That pair is high ratio and still harmful: it produces visual vibration and text freezing for many dyslexic and fatigued readers.
 
-Use off-black text on off-white canvas on screens. Example only: `#2C2A28` on `#F7F3EE` (≈13.5:1).
+Use off-black text on off-white canvas on screens. Example only: `#2C2A28` on `#F7F3EE` (≈12.9:1).
 
 ## Screen (WCAG 2.1 AA)
 
@@ -300,7 +300,7 @@ description: State cannot be hue-only. Pair color with shape, pattern, or visibl
 ### Skill: print-scale-inspector
 ---
 name: print-scale-inspector
-description: Print body ≥12pt (≥18pt large print), left-align only, line-height ≥1.4, safe margin ≥12.7mm (0.5in) on A4 and US Letter, vector text only.
+description: Print body ≥12pt (≥18pt large print), left-align only, line-height ≥1.5, safe margin ≥12.7mm (0.5in) on A4 and US Letter, vector text only.
 ---
 
 # print-scale-inspector
@@ -313,7 +313,7 @@ description: Print body ≥12pt (≥18pt large print), left-align only, line-hei
 
 - Body ≥ 12pt. Large print ≥ 18pt.
 - Body `text-align: left` only. Justified body is forbidden.
-- Line-height ≥ 1.4× (prefer 1.5).
+- Line-height ≥ 1.5×.
 - Safe margin: no content inside 12.7mm (0.5in) of any edge on A4 and US Letter.
 - Body must be vector/selectable text, not a raster of type.
 
@@ -372,7 +372,7 @@ Agents: Refer to the raw JSON files for exact values, but use these as a structu
         "value": "#E8D9C8"
       },
       "accent": {
-        "value": "#7A8F7A"
+        "value": "#5F735F"
       },
       "emphasis": {
         "value": "#4A5D4E"
