@@ -86,5 +86,5 @@ Exit `0` = pass. Exit `1` = fail. Optional tool, not a hidden dependency.
 
 ### License
 
-Software: MIT.  
-Documentation and design principles: CC BY 4.0.
+Software: MIT ([`LICENSE`](./LICENSE)).  
+Documentation and design principles: CC BY 4.0 ([`LICENSE-CC-BY-4.0`](./LICENSE-CC-BY-4.0)).

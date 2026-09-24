@@ -1,22 +1,22 @@
-# Status: V1 frozen
+# Status: V1 un-frozen
 
-Date: 2026-08-30
+Date: 2026-09-24
 
-This is the V1 freeze. The learning loop on this repo is closed.
+V1 was frozen on 2026-08-30 and un-frozen in commit d46c401. Current enhancements are tracked in `ROADMAP.md`.
 
 In the tree:
 
-- Public repo, quiet
+- Public repo
 - Stance without shop / brand-as-law
 - Dual license (MIT software, CC BY 4.0 docs and principles)
-- Principles + token JSON (keys first, hex as examples)
+- Principles + token JSON (keys first, hex as examples) + JSON schema (`schemas/`)
 - Nine skills with numbers, one ban per file, no clickable divs
+- `agent-instructions.md` master context, rebuilt with `build-agent-context.sh`
+- Web and print baselines (`examples/`)
+- GitHub Action template (`.github/workflows/a11y-check.yml`, pa11y-ci)
 
-Not in scope for V1:
+Not in scope yet:
 
-- Focus CSS snippet file, SVG pack, GitHub Action, speech scripts
+- Focus CSS snippet file, SVG pack, speech scripts
 - Stranger test against a cheap model
-- Profile / post visibility
 - Soft Start brand or private SSS docs
-
-Resume only if Gabriel writes `unfreeze` in a commit message.

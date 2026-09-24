@@ -7,7 +7,7 @@ description: For each printable, write a ~30s layout narration (70–90 words), 
 
 ## Load with
 
-`principles/print-scale` numbers: safe margin = 12.7mm (0.5in) on A4 and US Letter.
+`skills/print-scale-inspector/SKILL.md` numbers: safe margin = 12.7mm (0.5in) on A4 and US Letter.
 
 ## Law (once)
 
