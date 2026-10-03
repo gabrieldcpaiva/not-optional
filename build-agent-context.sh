@@ -23,13 +23,16 @@ done
 echo "" >> "$OUTPUT_FILE"
 echo "## Agent Skills" >> "$OUTPUT_FILE"
 
-# Append all skills
-for file in skills/*/SKILL.md; do
-  skill_name=$(dirname "$file" | xargs basename)
-  echo "" >> "$OUTPUT_FILE"
-  echo "### Skill: $skill_name" >> "$OUTPUT_FILE"
-  cat "$file" >> "$OUTPUT_FILE"
-done
+# Append all skills in one write. The loop used to open the output file
+# three times per skill.
+{
+  for file in skills/*/SKILL.md; do
+    [ -e "$file" ] || continue
+    skill_name=$(basename "$(dirname "$file")")
+    printf '\n### Skill: %s\n' "$skill_name"
+    cat "$file"
+  done
+} >> "$OUTPUT_FILE"
 
 echo "" >> "$OUTPUT_FILE"
 echo "## Design Tokens" >> "$OUTPUT_FILE"
