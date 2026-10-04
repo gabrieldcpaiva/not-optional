@@ -14,11 +14,14 @@ echo "" >> "$OUTPUT_FILE"
 echo "## Core Principles" >> "$OUTPUT_FILE"
 
 # Append all principles
-for file in principles/*.md; do
-  echo "" >> "$OUTPUT_FILE"
-  echo "### $(basename "$file" .md)" >> "$OUTPUT_FILE"
-  cat "$file" >> "$OUTPUT_FILE"
-done
+{
+  for file in principles/*.md; do
+    echo ""
+    echo "### $(basename "$file" .md)"
+    cat "$file"
+  done
+} >> "$OUTPUT_FILE"
+
 
 echo "" >> "$OUTPUT_FILE"
 echo "## Agent Skills" >> "$OUTPUT_FILE"
