@@ -5,6 +5,11 @@ OUTPUT_FILE="agent-instructions.md"
 
 echo "Building $OUTPUT_FILE..."
 
+if [ ! -d "principles" ] || [ ! -d "skills" ]; then
+  echo "Error: Required directories 'principles' or 'skills' are missing." >&2
+  exit 1
+fi
+
 # Write the header
 echo "# not-optional: Agent Accessibility Instructions" > "$OUTPUT_FILE"
 echo "" >> "$OUTPUT_FILE"
