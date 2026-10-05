@@ -17,7 +17,9 @@ echo "Building $OUTPUT_FILE..."
   # Append all principles
   for file in principles/*.md; do
     echo ""
-    echo "### $(basename "$file" .md)"
+    # Optimization: Use bash built-in string manipulation instead of expensive $(basename) subshell
+    filename="${file##*/}"
+    echo "### ${filename%.md}"
     cat "$file"
   done
 
@@ -27,7 +29,9 @@ echo "Building $OUTPUT_FILE..."
   # Append all skills
   for file in skills/*/SKILL.md; do
     [ -e "$file" ] || continue
-    skill_name=$(basename "$(dirname "$file")")
+    # Optimization: Use bash built-ins for dirname/basename equivalent to avoid forking subshells
+    dir="${file%/*}"
+    skill_name="${dir##*/}"
     printf '\n### Skill: %s\n' "$skill_name"
     cat "$file"
   done
