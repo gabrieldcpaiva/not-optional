@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline';">
     <title>Baseline Web Example - not-optional</title>
     <style>
         /*
@@ -199,7 +200,7 @@
             <form action="#submit">
                 <label for="email">Email address</label>
                 <!-- Required field implies validation; tone-auditor specifies error handling tone -->
-                <input type="email" id="email" name="email" aria-describedby="email-hint">
+                <input type="email" id="email" name="email" aria-describedby="email-hint" required maxlength="255">
                 <p id="email-hint" style="font-size: 0.875rem; margin-top: -1rem; margin-bottom: 1.5rem;">
                     We use this to send you account access links.
                 </p>
