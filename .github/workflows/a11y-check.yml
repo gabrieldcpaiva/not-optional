@@ -23,10 +23,11 @@ jobs:
     - name: Install dependencies
       run: npm install --no-save pa11y-ci
 
-    - name: Prepare CI Configuration
-      run: jq '.defaults += {"chromeLaunchConfig": {"args": ["--no-sandbox", "--disable-setuid-sandbox"]}}' .pa11yci.json > .pa11yci.ci.json
+    - name: Validate pa11y config
+      run: |
+        npx -y ajv-cli validate -s schemas/pa11yci.schema.json -d .pa11yci.json
 
     # In a real project, you would build the site and serve it locally before running pa11y,
     # or point it at specific static files. Here we test our baseline examples.
     - name: Run Accessibility Tests
-      run: npx pa11y-ci examples/*.html --config .pa11yci.ci.json
+      run: npx pa11y-ci examples/*.html --config .pa11yci.json

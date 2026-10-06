@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "pa11y-ci Configuration Schema",
+  "type": "object",
+  "properties": {
+    "defaults": {
+      "type": "object",
+      "properties": {
+        "standard": {
+          "type": "string",
+          "enum": ["WCAG2A", "WCAG2AA", "WCAG2AAA", "Section508"]
+        },
+        "runners": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "level": {
+          "type": "string",
+          "enum": ["error", "warning", "notice"]
+        },
+        "timeout": {
+          "type": "integer"
+        },
+        "chromeLaunchConfig": {
+          "type": "object",
+          "properties": {
+            "args": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": ["defaults"]
+}
