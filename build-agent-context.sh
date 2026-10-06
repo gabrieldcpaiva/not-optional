@@ -10,29 +10,6 @@ if [ ! -d "principles" ] || [ ! -d "skills" ]; then
   exit 1
 fi
 
-# Write the header
-echo "# not-optional: Agent Accessibility Instructions" > "$OUTPUT_FILE"
-echo "" >> "$OUTPUT_FILE"
-echo "This document aggregates the accessibility laws and constraints from the \`not-optional\` toolkit." >> "$OUTPUT_FILE"
-echo "When building or auditing web interfaces and print documents, you must strictly follow these rules." >> "$OUTPUT_FILE"
-echo "" >> "$OUTPUT_FILE"
-echo "## Core Principles" >> "$OUTPUT_FILE"
-
-# Append all principles
-{
-  for file in principles/*.md; do
-    echo ""
-    echo "### $(basename "$file" .md)"
-    cat "$file"
-  done
-} >> "$OUTPUT_FILE"
-
-
-echo "" >> "$OUTPUT_FILE"
-echo "## Agent Skills" >> "$OUTPUT_FILE"
-
-# Append all skills in one write. The loop used to open the output file
-# three times per skill.
 {
   # Write the header
   echo "# not-optional: Agent Accessibility Instructions"
