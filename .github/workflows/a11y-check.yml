@@ -23,6 +23,10 @@ jobs:
     - name: Install dependencies
       run: npm install --no-save pa11y-ci
 
+    - name: Validate pa11y config
+      run: |
+        npx -y ajv-cli validate -s schemas/pa11yci.schema.json -d .pa11yci.json
+
     # In a real project, you would build the site and serve it locally before running pa11y,
     # or point it at specific static files. Here we test our baseline examples.
     - name: Run Accessibility Tests
