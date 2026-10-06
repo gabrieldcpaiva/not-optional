@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline';">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self';">
     <title>Baseline Web Example - not-optional</title>
     <style>
         /*
@@ -141,6 +140,11 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
+            transition: opacity 0.2s ease;
+        }
+
+        button:hover {
+            opacity: 0.9;
         }
 
         button svg {
@@ -161,6 +165,11 @@
             font-weight: 600;
             cursor: pointer;
             color: var(--color-emphasis);
+            transition: opacity 0.2s ease;
+        }
+
+        summary:hover {
+            opacity: 0.9;
         }
 
         summary:focus-visible {
@@ -183,7 +192,7 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <main class="container">
         <!-- aria-dom-architect: Sequential headings. Native HTML first. One h1. -->
         <h1>Account Setup</h1>
 
@@ -201,7 +210,7 @@
             <form action="#submit">
                 <label for="email">Email address <span aria-hidden="true">*</span><span class="sr-only"> (Required)</span></label>
                 <!-- Required field implies validation; tone-auditor specifies error handling tone -->
-                <input type="email" id="email" name="email" aria-describedby="email-hint" required maxlength="255">
+                <input type="email" id="email" name="email" aria-describedby="email-hint" required maxlength="255" placeholder="e.g., name@example.com" autocomplete="email">
                 <p id="email-hint" style="font-size: 0.875rem; margin-top: -1rem; margin-bottom: 1.5rem;">
                     We use this to send you account access links.
                 </p>
@@ -228,6 +237,6 @@
             </p>
         </details>
 
-    </div>
+    </main>
 </body>
 </html>
