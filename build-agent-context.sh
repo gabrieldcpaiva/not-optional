@@ -10,16 +10,16 @@ if [ ! -d "principles" ] || [ ! -d "skills" ]; then
   exit 1
 fi
 
-{
-  # Write the header
-  echo "# not-optional: Agent Accessibility Instructions"
-  echo ""
-  echo "This document aggregates the accessibility laws and constraints from the \`not-optional\` toolkit."
-  echo "When building or auditing web interfaces and print documents, you must strictly follow these rules."
-  echo ""
-  echo "## Core Principles"
+# Write the header
+echo "# not-optional: Agent Accessibility Instructions" > "$OUTPUT_FILE"
+echo "" >> "$OUTPUT_FILE"
+echo "This document aggregates the accessibility laws and constraints from the \`not-optional\` toolkit." >> "$OUTPUT_FILE"
+echo "When building or auditing web interfaces and print documents, you must strictly follow these rules." >> "$OUTPUT_FILE"
+echo "" >> "$OUTPUT_FILE"
+echo "## Core Principles" >> "$OUTPUT_FILE"
 
-  # Append all principles
+# Append all principles
+{
   for file in principles/*.md; do
     echo ""
     # ⚡ Bolt Optimization: Use bash parameter expansion instead of subshell $(basename "$file" .md)
@@ -28,10 +28,15 @@ fi
     echo "### ${filename%.md}"
     cat "$file"
   done
+} >> "$OUTPUT_FILE"
 
-  echo ""
-  echo "## Agent Skills"
 
+echo "" >> "$OUTPUT_FILE"
+echo "## Agent Skills" >> "$OUTPUT_FILE"
+
+# Append all skills in one write. The loop used to open the output file
+# three times per skill.
+{
   # Append all skills
   for file in skills/*/SKILL.md; do
     [ -e "$file" ] || continue
@@ -58,6 +63,6 @@ fi
   echo '```json'
   cat principles/tokens.print-monochrome.json
   echo '```'
-} > "$OUTPUT_FILE"
+} >> "$OUTPUT_FILE"
 
 echo "Successfully built $OUTPUT_FILE"
