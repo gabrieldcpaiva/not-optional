@@ -34,8 +34,7 @@
             }
           }
         }
-      },
-      "required": ["standard", "runners", "level", "timeout", "chromeLaunchConfig"]
+      }
     }
   },
   "required": ["defaults"]

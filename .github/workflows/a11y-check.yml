@@ -30,4 +30,4 @@ jobs:
     # In a real project, you would build the site and serve it locally before running pa11y,
     # or point it at specific static files. Here we test our baseline examples.
     - name: Run Accessibility Tests
-      run: npx pa11y-ci examples/*.html --config .pa11yci.ci.json
+      run: npx pa11y-ci examples/*.html --config .pa11yci.json
