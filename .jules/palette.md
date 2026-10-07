@@ -1,0 +1,3 @@
+## 2024-10-07 - Accessible Disabled States
+**Learning:** Using the native `disabled` attribute on interactive elements completely removes them from the keyboard focus order and hides them from assistive technologies. This creates a confusing experience for screen reader users who cannot discover the button or hear any associated tooltips explaining *why* it is disabled.
+**Action:** Use `aria-disabled="true"` instead of `disabled` for buttons and interactive elements that need a disabled state. This allows the element to remain discoverable via keyboard focus while explicitly announcing its disabled state to screen readers. Pair this with visual CSS changes (e.g., lower opacity, `cursor: not-allowed`) and handle the prevention of click events in JS.
