@@ -107,6 +107,14 @@
             font-family: inherit;
             margin-bottom: 1.5rem;
             box-sizing: border-box;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        input[type="text"]:hover,
+        input[type="email"]:hover {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            /* Darken slightly on hover for tactile indication */
+            border-color: var(--color-text);
         }
 
         /* Strict Focus Rule (focus-flow-tester) */
@@ -140,11 +148,28 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            transition: opacity 0.2s ease;
+            transition: opacity 0.2s ease, transform 0.1s ease;
         }
 
-        button:hover {
+        button:hover:not([aria-disabled="true"]):not([disabled]) {
             opacity: 0.9;
+        }
+
+        button:active:not([aria-disabled="true"]):not([disabled]) {
+            /* Physical press state */
+            transform: scale(0.98);
+        }
+
+        button[aria-disabled="true"], button[disabled] {
+            /*
+             * Accessible disabled state: keeps focus flow intact
+             * so screen reader users can discover the element.
+             * Visually distinct (lower contrast, greyscale feel).
+             */
+            opacity: 0.5;
+            cursor: not-allowed;
+            background-color: var(--color-divider);
+            color: var(--color-text);
         }
 
         button svg {
@@ -216,13 +241,25 @@
                 </p>
 
                 <!-- multimodal-cue-agent: Color change is never the only state cue. Added SVG shape. -->
-                <button type="submit">
-                    <!-- Decorative SVG: aria-hidden="true" -->
-                    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
-                        <path d="M5 12l5 5l10 -10" stroke="currentColor" stroke-width="2" fill="none"/>
-                    </svg>
-                    <span>Save profile</span>
-                </button>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <button type="submit">
+                        <!-- Decorative SVG: aria-hidden="true" -->
+                        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+                            <path d="M5 12l5 5l10 -10" stroke="currentColor" stroke-width="2" fill="none"/>
+                        </svg>
+                        <span>Save profile</span>
+                    </button>
+
+                    <!-- Accessible disabled button example -->
+                    <button type="button" aria-disabled="true" aria-describedby="disabled-hint">
+                        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11H7v-2h10v2z" stroke="currentColor" stroke-width="2" fill="none"/>
+                        </svg>
+                        <span>Delete profile</span>
+                    </button>
+                </div>
+                <!-- This hint remains accessible even though the button is visually disabled -->
+                <p id="disabled-hint" class="sr-only">Profile deletion is disabled while you have active subscriptions.</p>
             </form>
         </div>
 
@@ -238,5 +275,16 @@
         </details>
 
     </main>
+
+    <script>
+        // Prevent action on elements marked as aria-disabled
+        document.addEventListener('click', function(event) {
+            const target = event.target.closest('[aria-disabled="true"]');
+            if (target) {
+                event.preventDefault();
+                event.stopImmediatePropagation();
+            }
+        }, true);
+    </script>
 </body>
 </html>
