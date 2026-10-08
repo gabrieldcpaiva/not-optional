@@ -147,6 +147,14 @@
             opacity: 0.9;
         }
 
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .spinner-icon {
+            animation: spin 1s linear infinite;
+        }
+
         button svg {
             /* Multimodal cue: geometry paired with text */
             width: 1.25rem;
@@ -207,7 +215,7 @@
 
         <div class="surface-card">
             <!-- Native HTML form elements instead of ARIA constructs -->
-            <form action="#submit">
+            <form action="#submit" id="profile-form">
                 <label for="email">Email address <span aria-hidden="true">*</span><span class="sr-only"> (Required)</span></label>
                 <!-- Required field implies validation; tone-auditor specifies error handling tone -->
                 <input type="email" id="email" name="email" aria-describedby="email-hint" required maxlength="255" placeholder="e.g., name@example.com" autocomplete="email">
@@ -216,12 +224,12 @@
                 </p>
 
                 <!-- multimodal-cue-agent: Color change is never the only state cue. Added SVG shape. -->
-                <button type="submit">
+                <button type="submit" id="submit-btn" aria-live="polite">
                     <!-- Decorative SVG: aria-hidden="true" -->
-                    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+                    <svg id="btn-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
                         <path d="M5 12l5 5l10 -10" stroke="currentColor" stroke-width="2" fill="none"/>
                     </svg>
-                    <span>Save profile</span>
+                    <span id="btn-text">Save profile</span>
                 </button>
             </form>
         </div>
@@ -238,5 +246,69 @@
         </details>
 
     </main>
+
+    <script>
+        const form = document.getElementById('profile-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const btnIcon = document.getElementById('btn-icon');
+        const btnText = document.getElementById('btn-text');
+
+        const originalIconHTML = btnIcon.innerHTML;
+        const originalText = btnText.textContent;
+        const spinnerHTML = `<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none" stroke-dasharray="31.4 31.4" stroke-linecap="round"></circle>`;
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            if (submitBtn.getAttribute('aria-disabled') === 'true') {
+                return;
+            }
+
+            // Set loading state
+            submitBtn.setAttribute('aria-disabled', 'true');
+            submitBtn.style.opacity = '0.7';
+            submitBtn.style.cursor = 'wait';
+
+            btnIcon.innerHTML = spinnerHTML;
+            btnIcon.classList.add('spinner-icon');
+            btnText.textContent = 'Saving...';
+
+            // Simulate async network request
+            setTimeout(() => {
+                // Restore original state
+                submitBtn.removeAttribute('aria-disabled');
+                submitBtn.style.opacity = '';
+                submitBtn.style.cursor = 'pointer';
+
+                btnIcon.innerHTML = originalIconHTML;
+                btnIcon.classList.remove('spinner-icon');
+                btnText.textContent = originalText;
+
+                // Show a success message briefly (for actual UX feedback beyond button reverting)
+                const successMsg = document.createElement('p');
+                successMsg.textContent = 'Profile saved successfully.';
+                successMsg.style.color = 'var(--color-emphasis)';
+                successMsg.style.fontWeight = '600';
+                successMsg.style.marginTop = '1rem';
+                successMsg.setAttribute('aria-live', 'polite');
+                successMsg.setAttribute('role', 'status');
+
+                form.appendChild(successMsg);
+                setTimeout(() => form.removeChild(successMsg), 3000);
+            }, 1500);
+        });
+
+        // Accessible disabled states: prevent click and keyboard activation while maintaining focusability
+        submitBtn.addEventListener('click', (e) => {
+             if (submitBtn.getAttribute('aria-disabled') === 'true') {
+                 e.preventDefault();
+             }
+        });
+        submitBtn.addEventListener('keydown', (e) => {
+            if ((e.key === 'Enter' || e.key === ' ') && submitBtn.getAttribute('aria-disabled') === 'true') {
+                e.preventDefault();
+            }
+        });
+    </script>
 </body>
 </html>
