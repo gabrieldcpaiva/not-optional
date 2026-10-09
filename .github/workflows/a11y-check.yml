@@ -21,11 +21,12 @@ jobs:
         node-version: '20'
 
     - name: Install dependencies
-      run: npm install --no-save pa11y-ci
+      # ⚡ Bolt Optimization: Batch install all CLI tools and skip npx -y download overhead
+      run: npm install --no-save pa11y-ci ajv-cli
 
     - name: Validate pa11y config
       run: |
-        npx -y ajv-cli validate -s schemas/pa11yci.schema.json -d .pa11yci.json
+        npx ajv-cli validate -s schemas/pa11yci.schema.json -d .pa11yci.json
 
     # In a real project, you would build the site and serve it locally before running pa11y,
     # or point it at specific static files. Here we test our baseline examples.
