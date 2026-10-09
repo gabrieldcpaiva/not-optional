@@ -1,0 +1,3 @@
+## 2025-02-23 - Interactive element disabled states and keyboard accessibility
+**Learning:** Adding the native `disabled` attribute to elements like `<button>` drops them from the keyboard focus flow, violating accessibility constraints by preventing screen readers from discovering the element.
+**Action:** When creating disabled interactive elements, use `aria-disabled="true"` to denote state and prevent native browser interactions, such as form submissions, via JavaScript instead. Use CSS element attributes (`[aria-disabled="true"]`) to visually signify the disabled state (e.g. lowered opacity, `cursor: not-allowed`).
