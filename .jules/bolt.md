@@ -7,3 +7,7 @@
 ## 2025-02-12 - Duplicate Block Overwriting Optimization & Bug Fix
 **Learning:** A bash script was designed to output headers and principles, but a later duplicated code block in the script erroneously re-generated those headers/principles and used the destructive output redirection `> "$OUTPUT_FILE"` instead of appending `>> "$OUTPUT_FILE"`. This wiped out the previous output and performed redundant disk I/O and process spawns.
 **Action:** When finding logic duplicated across blocks writing to the same file, examine the file redirection operators. Remove the redundant loop and change `> "$OUTPUT_FILE"` to `>> "$OUTPUT_FILE"` to fix the bug and improve performance.
+
+## 2025-02-12 - Batch CI tool installation to avoid dynamic npx resolution
+**Learning:** In repositories without a `package.json`, using `npx -y <package>` inside a CI workflow forces `npx` to dynamically resolve, download, and install the package every time the step runs, which adds noticeable overhead.
+**Action:** Batch install all required CLI tools using a single `npm install --no-save package1 package2` command. In subsequent steps, use `npx package` without the `-y` flag, which allows `npx` to use the locally installed version much faster.
