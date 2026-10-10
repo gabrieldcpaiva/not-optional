@@ -147,6 +147,11 @@
             opacity: 0.9;
         }
 
+        button[aria-disabled="true"] {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
         button svg {
             /* Multimodal cue: geometry paired with text */
             width: 1.25rem;
@@ -216,15 +221,47 @@
                 </p>
 
                 <!-- multimodal-cue-agent: Color change is never the only state cue. Added SVG shape. -->
-                <button type="submit">
+                <button type="submit" id="save-button">
                     <!-- Decorative SVG: aria-hidden="true" -->
                     <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
                         <path d="M5 12l5 5l10 -10" stroke="currentColor" stroke-width="2" fill="none"/>
                     </svg>
-                    <span>Save profile</span>
+                    <span id="save-text">Save profile</span>
                 </button>
             </form>
         </div>
+
+        <script>
+            // Add accessible loading state to form submission
+            const form = document.querySelector('form');
+            const saveButton = document.getElementById('save-button');
+            const saveText = document.getElementById('save-text');
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                // Prevent multiple submissions if already disabled
+                if (saveButton.getAttribute('aria-disabled') === 'true') {
+                    return;
+                }
+
+                // Set accessible disabled state
+                saveButton.setAttribute('aria-disabled', 'true');
+                saveText.textContent = 'Saving...';
+
+                // Simulate network request
+                setTimeout(() => {
+                    saveText.textContent = 'Saved!';
+
+                    // Reset after some time
+                    setTimeout(() => {
+                        saveButton.removeAttribute('aria-disabled');
+                        saveText.textContent = 'Save profile';
+                        form.submit();
+                    }, 1500);
+                }, 1500);
+            });
+        </script>
 
         <h2>Frequently Asked Questions</h2>
 
