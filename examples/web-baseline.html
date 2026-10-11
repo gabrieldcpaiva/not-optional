@@ -290,9 +290,19 @@
         const btnIcon = document.getElementById('btn-icon');
         const btnText = document.getElementById('btn-text');
 
-        const originalIconHTML = btnIcon.innerHTML;
+        // Store original children to avoid innerHTML usage (XSS vector)
+        const originalIconChildren = Array.from(btnIcon.children);
         const originalText = btnText.textContent;
-        const spinnerHTML = `<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none" stroke-dasharray="31.4 31.4" stroke-linecap="round"></circle>`;
+
+        const spinnerCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        spinnerCircle.setAttribute('cx', '12');
+        spinnerCircle.setAttribute('cy', '12');
+        spinnerCircle.setAttribute('r', '10');
+        spinnerCircle.setAttribute('stroke', 'currentColor');
+        spinnerCircle.setAttribute('stroke-width', '4');
+        spinnerCircle.setAttribute('fill', 'none');
+        spinnerCircle.setAttribute('stroke-dasharray', '31.4 31.4');
+        spinnerCircle.setAttribute('stroke-linecap', 'round');
 
         form.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -306,7 +316,7 @@
             submitBtn.style.opacity = '0.7';
             submitBtn.style.cursor = 'wait';
 
-            btnIcon.innerHTML = spinnerHTML;
+            btnIcon.replaceChildren(spinnerCircle);
             btnIcon.classList.add('spinner-icon');
             btnText.textContent = 'Saving...';
 
@@ -317,7 +327,7 @@
                 submitBtn.style.opacity = '';
                 submitBtn.style.cursor = 'pointer';
 
-                btnIcon.innerHTML = originalIconHTML;
+                btnIcon.replaceChildren(...originalIconChildren);
                 btnIcon.classList.remove('spinner-icon');
                 btnText.textContent = originalText;
 
