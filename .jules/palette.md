@@ -1,3 +1,3 @@
-## 2025-02-23 - Interactive element disabled states and keyboard accessibility
-**Learning:** Adding the native `disabled` attribute to elements like `<button>` drops them from the keyboard focus flow, violating accessibility constraints by preventing screen readers from discovering the element.
-**Action:** When creating disabled interactive elements, use `aria-disabled="true"` to denote state and prevent native browser interactions, such as form submissions, via JavaScript instead. Use CSS element attributes (`[aria-disabled="true"]`) to visually signify the disabled state (e.g. lowered opacity, `cursor: not-allowed`).
+## 2026-10-08 - Accessible Disabled & Loading States
+**Learning:** Adding a loading state to a submit button using `aria-disabled="true"` prevents double submissions while keeping the button discoverable and providing immediate visual feedback. Using the native `disabled` attribute would remove the element from the tab order.
+**Action:** For async interactions, prevent default submission, apply `aria-disabled="true"`, update the visual cue (e.g., loading spinner and text), and use JavaScript to block subsequent activations until the async task is complete.
