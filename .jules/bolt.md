@@ -11,3 +11,7 @@
 ## 2025-02-18 - CI Dependency Dynamic Resolution Overhead
 **Learning:** In GitHub Actions (and other CI environments), using `npx -y` (or `npx` generally) on tools that aren't already installed locally causes Node to dynamically resolve, download, and install the package every time the command is invoked. This introduces significant network and parsing overhead, particularly if the tool is used multiple times or could be batched.
 **Action:** When multiple CLI tools (like `pa11y-ci` and `ajv-cli`) are needed in CI for a project without a `package.json`, install them together using a single `npm install --no-save package1 package2` command. Then, remove the `-y` flag from subsequent `npx` calls. This caches the installation and eliminates the per-call resolution penalty.
+
+## 2026-10-11 - Duplicate JavaScript Block Execution Overhead
+**Learning:** A duplicated <script> block in a baseline HTML template caused a redundant parse and execution pass, while also throwing a SyntaxError due to redeclared const variables. This stalled main-thread parsing.
+**Action:** When auditing HTML template baselines for performance, search for duplicated or orphaned script tags that refer to removed DOM elements. Removing them saves parsing time and avoids runtime errors.
