@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self'; script-src 'none';">
     <title>Baseline Web Example - not-optional</title>
     <style>
         /*
@@ -162,6 +162,11 @@
             fill: currentColor;
         }
 
+        button[aria-disabled="true"] {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
         details {
             background-color: var(--color-surface);
             padding: 1rem;
@@ -233,6 +238,38 @@
                 </button>
             </form>
         </div>
+
+        <script>
+            // Add accessible loading state to form submission
+            const form = document.querySelector('form');
+            const saveButton = document.getElementById('save-button');
+            const saveText = document.getElementById('save-text');
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                // Prevent multiple submissions if already disabled
+                if (saveButton.getAttribute('aria-disabled') === 'true') {
+                    return;
+                }
+
+                // Set accessible disabled state
+                saveButton.setAttribute('aria-disabled', 'true');
+                saveText.textContent = 'Saving...';
+
+                // Simulate network request
+                setTimeout(() => {
+                    saveText.textContent = 'Saved!';
+
+                    // Reset after some time
+                    setTimeout(() => {
+                        saveButton.removeAttribute('aria-disabled');
+                        saveText.textContent = 'Save profile';
+                        form.submit();
+                    }, 1500);
+                }, 1500);
+            });
+        </script>
 
         <h2>Frequently Asked Questions</h2>
 

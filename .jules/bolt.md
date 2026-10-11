@@ -7,3 +7,7 @@
 ## 2025-02-12 - Duplicate Block Overwriting Optimization & Bug Fix
 **Learning:** A bash script was designed to output headers and principles, but a later duplicated code block in the script erroneously re-generated those headers/principles and used the destructive output redirection `> "$OUTPUT_FILE"` instead of appending `>> "$OUTPUT_FILE"`. This wiped out the previous output and performed redundant disk I/O and process spawns.
 **Action:** When finding logic duplicated across blocks writing to the same file, examine the file redirection operators. Remove the redundant loop and change `> "$OUTPUT_FILE"` to `>> "$OUTPUT_FILE"` to fix the bug and improve performance.
+
+## 2025-02-18 - CI Dependency Dynamic Resolution Overhead
+**Learning:** In GitHub Actions (and other CI environments), using `npx -y` (or `npx` generally) on tools that aren't already installed locally causes Node to dynamically resolve, download, and install the package every time the command is invoked. This introduces significant network and parsing overhead, particularly if the tool is used multiple times or could be batched.
+**Action:** When multiple CLI tools (like `pa11y-ci` and `ajv-cli`) are needed in CI for a project without a `package.json`, install them together using a single `npm install --no-save package1 package2` command. Then, remove the `-y` flag from subsequent `npx` calls. This caches the installation and eliminates the per-call resolution penalty.
