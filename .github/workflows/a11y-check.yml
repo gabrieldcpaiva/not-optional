@@ -21,7 +21,8 @@ jobs:
         node-version: '20'
 
     - name: Install dependencies
-      # ⚡ Bolt Optimization: Batch install CLI tools to avoid dynamic npx resolution overhead
+      # ⚡ Bolt Optimization: Batch install required CLI tools and omit npx -y below
+      # to prevent dynamic resolution and downloading overhead on each run.
       run: npm install --no-save pa11y-ci ajv-cli
 
     - name: Validate pa11y config
