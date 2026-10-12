@@ -258,10 +258,11 @@
         const btnIcon = document.getElementById('btn-icon');
         const btnText = document.getElementById('btn-text');
 
-        // Store original children to avoid innerHTML usage (XSS vector)
-        const originalIconChildren = Array.from(btnIcon.children);
+        // Store original children for safe restoration
+        const originalIconChildren = Array.from(btnIcon.childNodes);
         const originalText = btnText.textContent;
 
+        // Create spinner element securely
         const spinnerCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
         spinnerCircle.setAttribute('cx', '12');
         spinnerCircle.setAttribute('cy', '12');
