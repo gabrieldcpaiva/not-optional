@@ -229,7 +229,7 @@
                 </p>
 
                 <!-- multimodal-cue-agent: Color change is never the only state cue. Added SVG shape. -->
-                <button type="submit" id="submit-btn" aria-live="polite">
+                <button type="submit" id="submit-btn" aria-live="polite" title="Save profile (Cmd/Ctrl + Enter)">
                     <!-- Decorative SVG: aria-hidden="true" -->
                     <svg id="btn-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
                         <path d="M5 12l5 5l10 -10" stroke="currentColor" stroke-width="2" fill="none"/>
@@ -323,6 +323,14 @@
         submitBtn.addEventListener('keydown', (e) => {
             if ((e.key === 'Enter' || e.key === ' ') && submitBtn.getAttribute('aria-disabled') === 'true') {
                 e.preventDefault();
+            }
+        });
+
+        // Keyboard shortcut for power users
+        form.addEventListener('keydown', (e) => {
+            if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+                e.preventDefault();
+                submitBtn.click();
             }
         });
     </script>
