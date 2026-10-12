@@ -21,15 +21,15 @@ jobs:
         node-version: '20'
 
     - name: Install dependencies
-      # ⚡ Bolt Optimization: Batch install required CLI tools and omit npx -y below
-      # to prevent dynamic resolution and downloading overhead on each run.
+      # ⚡ Bolt Optimization: Batch install required CLI tools and use npx --no-install below
+      # to prevent dynamic resolution and downloading overhead on each run step.
       run: npm install --no-save pa11y-ci ajv-cli
 
     - name: Validate pa11y config
       run: |
-        npx ajv-cli validate -s schemas/pa11yci.schema.json -d .pa11yci.json
+        npx --no-install ajv-cli validate -s schemas/pa11yci.schema.json -d .pa11yci.json
 
     # In a real project, you would build the site and serve it locally before running pa11y,
     # or point it at specific static files. Here we test our baseline examples.
     - name: Run Accessibility Tests
-      run: npx pa11y-ci examples/*.html --config .pa11yci.json
+      run: npx --no-install pa11y-ci examples/*.html --config .pa11yci.json
