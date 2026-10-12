@@ -239,38 +239,6 @@
             </form>
         </div>
 
-        <script>
-            // Add accessible loading state to form submission
-            const form = document.querySelector('form');
-            const saveButton = document.getElementById('save-button');
-            const saveText = document.getElementById('save-text');
-
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-
-                // Prevent multiple submissions if already disabled
-                if (saveButton.getAttribute('aria-disabled') === 'true') {
-                    return;
-                }
-
-                // Set accessible disabled state
-                saveButton.setAttribute('aria-disabled', 'true');
-                saveText.textContent = 'Saving...';
-
-                // Simulate network request
-                setTimeout(() => {
-                    saveText.textContent = 'Saved!';
-
-                    // Reset after some time
-                    setTimeout(() => {
-                        saveButton.removeAttribute('aria-disabled');
-                        saveText.textContent = 'Save profile';
-                        form.submit();
-                    }, 1500);
-                }, 1500);
-            });
-        </script>
-
         <h2>Frequently Asked Questions</h2>
 
         <!-- aria-dom-architect: Expand/collapse native element -->
