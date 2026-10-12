@@ -11,7 +11,6 @@
 ## 2025-02-18 - CI Dependency Dynamic Resolution Overhead
 **Learning:** In GitHub Actions (and other CI environments), using `npx -y` (or `npx` generally) on tools that aren't already installed locally causes Node to dynamically resolve, download, and install the package every time the command is invoked. This introduces significant network and parsing overhead, particularly if the tool is used multiple times or could be batched.
 **Action:** When multiple CLI tools (like `pa11y-ci` and `ajv-cli`) are needed in CI for a project without a `package.json`, install them together using a single `npm install --no-save package1 package2` command. Then, remove the `-y` flag from subsequent `npx` calls. This caches the installation and eliminates the per-call resolution penalty.
-
-## 2026-10-12 - CI Dependency Dynamic Resolution Uncached Verification
-**Learning:** Verified the performance penalty of using `npx -y` directly for execution versus using a batched local `npm install --no-save` before `npx` commands in CI. On the GitHub actions workflow file, executing `npx -y ajv-cli validate ...` dynamically without local cache took ~3.93 seconds per run. A batched install and local execution with `npx ajv-cli validate ...` completes execution of the validator in ~0.77 seconds.
-**Action:** Confirmed that the current batched `npm install --no-save pa11y-ci ajv-cli` strategy (without `-y`) in `.github/workflows/a11y-check.yml` successfully eliminates approximately ~80% of execution time by avoiding redundant NPM registry network requests and disk parsing. No further code edits were necessary for this component.
+## 2026-10-11 - npx Execution Overhead in CI
+**Learning:** Using `npx <command>` even when the package is installed locally triggers an npm resolution check. This dynamic resolution and checking overhead can add over 1 second per step (e.g. from 0.6s to 3s). In a CI environment where multiple tools are called, this adds up quickly.
+**Action:** Use `npx --no-install <command>` or `npx --no <command>` to strictly enforce local execution and completely bypass the dynamic resolution and network checks.
