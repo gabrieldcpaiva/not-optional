@@ -202,10 +202,28 @@
             white-space: nowrap;
             border-width: 0;
         }
+
+        /* Skip Link Utility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--color-emphasis);
+            color: var(--color-canvas);
+            padding: 8px;
+            z-index: 100;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
     </style>
 </head>
 <body>
-    <main class="container">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <main class="container" id="main-content" tabindex="-1" style="outline: none;">
         <!-- aria-dom-architect: Sequential headings. Native HTML first. One h1. -->
         <h1>Account Setup</h1>
 
@@ -229,7 +247,7 @@
                 </p>
 
                 <!-- multimodal-cue-agent: Color change is never the only state cue. Added SVG shape. -->
-                <button type="submit" id="submit-btn" aria-live="polite">
+                <button type="submit" id="submit-btn" aria-live="polite" title="Save profile (Cmd/Ctrl + Enter)">
                     <!-- Decorative SVG: aria-hidden="true" -->
                     <svg id="btn-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
                         <path d="M5 12l5 5l10 -10" stroke="currentColor" stroke-width="2" fill="none"/>
@@ -238,38 +256,6 @@
                 </button>
             </form>
         </div>
-
-        <script>
-            // Add accessible loading state to form submission
-            const form = document.querySelector('form');
-            const saveButton = document.getElementById('save-button');
-            const saveText = document.getElementById('save-text');
-
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-
-                // Prevent multiple submissions if already disabled
-                if (saveButton.getAttribute('aria-disabled') === 'true') {
-                    return;
-                }
-
-                // Set accessible disabled state
-                saveButton.setAttribute('aria-disabled', 'true');
-                saveText.textContent = 'Saving...';
-
-                // Simulate network request
-                setTimeout(() => {
-                    saveText.textContent = 'Saved!';
-
-                    // Reset after some time
-                    setTimeout(() => {
-                        saveButton.removeAttribute('aria-disabled');
-                        saveText.textContent = 'Save profile';
-                        form.submit();
-                    }, 1500);
-                }, 1500);
-            });
-        </script>
 
         <h2>Frequently Asked Questions</h2>
 
@@ -290,9 +276,20 @@
         const btnIcon = document.getElementById('btn-icon');
         const btnText = document.getElementById('btn-text');
 
-        const originalIconHTML = btnIcon.innerHTML;
+        // 🛡️ Sentinel: Clone original children to avoid innerHTML XSS risks
+        const originalIconNodes = Array.from(btnIcon.childNodes).map(n => n.cloneNode(true));
         const originalText = btnText.textContent;
-        const spinnerHTML = `<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none" stroke-dasharray="31.4 31.4" stroke-linecap="round"></circle>`;
+
+        // 🛡️ Sentinel: Create SVG elements securely using DOM API
+        const spinnerCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        spinnerCircle.setAttribute('cx', '12');
+        spinnerCircle.setAttribute('cy', '12');
+        spinnerCircle.setAttribute('r', '10');
+        spinnerCircle.setAttribute('stroke', 'currentColor');
+        spinnerCircle.setAttribute('stroke-width', '4');
+        spinnerCircle.setAttribute('fill', 'none');
+        spinnerCircle.setAttribute('stroke-dasharray', '31.4 31.4');
+        spinnerCircle.setAttribute('stroke-linecap', 'round');
 
         form.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -306,7 +303,7 @@
             submitBtn.style.opacity = '0.7';
             submitBtn.style.cursor = 'wait';
 
-            btnIcon.innerHTML = spinnerHTML;
+            btnIcon.replaceChildren(spinnerCircle);
             btnIcon.classList.add('spinner-icon');
             btnText.textContent = 'Saving...';
 
@@ -317,7 +314,7 @@
                 submitBtn.style.opacity = '';
                 submitBtn.style.cursor = 'pointer';
 
-                btnIcon.innerHTML = originalIconHTML;
+                btnIcon.replaceChildren(...originalIconNodes.map(n => n.cloneNode(true)));
                 btnIcon.classList.remove('spinner-icon');
                 btnText.textContent = originalText;
 
@@ -344,6 +341,14 @@
         submitBtn.addEventListener('keydown', (e) => {
             if ((e.key === 'Enter' || e.key === ' ') && submitBtn.getAttribute('aria-disabled') === 'true') {
                 e.preventDefault();
+            }
+        });
+
+        // Keyboard shortcut for power users
+        form.addEventListener('keydown', (e) => {
+            if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+                e.preventDefault();
+                submitBtn.click();
             }
         });
     </script>
