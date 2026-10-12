@@ -202,10 +202,28 @@
             white-space: nowrap;
             border-width: 0;
         }
+
+        /* Skip Link Utility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--color-emphasis);
+            color: var(--color-canvas);
+            padding: 8px;
+            z-index: 100;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
     </style>
 </head>
 <body>
-    <main class="container">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <main class="container" id="main-content" tabindex="-1" style="outline: none;">
         <!-- aria-dom-architect: Sequential headings. Native HTML first. One h1. -->
         <h1>Account Setup</h1>
 
