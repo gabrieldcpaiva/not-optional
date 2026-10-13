@@ -286,9 +286,8 @@
         const btnIcon = document.getElementById('btn-icon');
         const btnText = document.getElementById('btn-text');
 
-        // 🛡️ Sentinel: Keep references to original children to avoid innerHTML XSS risks
-        // ⚡ Bolt Optimization: Reuse original DOM nodes directly instead of deep cloning them.
-        // This avoids layout thrashing and unnecessary memory allocations.
+        // 🛡️ Sentinel: Clone original children to avoid innerHTML XSS risks
+        // ⚡ Bolt: No need to deep clone nodes, keeping the references is sufficient and faster
         const originalIconNodes = Array.from(btnIcon.childNodes);
         const originalText = btnText.textContent;
 
