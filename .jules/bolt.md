@@ -14,3 +14,7 @@
 ## 2026-10-11 - npx Execution Overhead in CI
 **Learning:** Using `npx <command>` even when the package is installed locally triggers an npm resolution check. This dynamic resolution and checking overhead can add over 1 second per step (e.g. from 0.6s to 3s). In a CI environment where multiple tools are called, this adds up quickly.
 **Action:** Use `npx --no-install <command>` or `npx --no <command>` to strictly enforce local execution and completely bypass the dynamic resolution and network checks.
+
+## 2026-10-13 - DOM Node Reuse Over Deep Cloning
+**Learning:** In frontend examples, storing the initial state of children nodes using deep cloning (`Array.from(element.childNodes).map(n => n.cloneNode(true))`) inside state toggles (like loading spinners on buttons) incurs unnecessary CPU overhead and memory allocations, especially in tight loops or large applications.
+**Action:** When temporarily swapping DOM elements (e.g., displaying a spinner), simply keep an array reference to the original `childNodes` (`Array.from(element.childNodes)`) and pass them directly back to `replaceChildren(...originalNodes)`. The browser safely detaches and re-attaches existing nodes, avoiding the need for expensive cloning operations.
