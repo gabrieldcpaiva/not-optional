@@ -277,7 +277,8 @@
         const btnText = document.getElementById('btn-text');
 
         // 🛡️ Sentinel: Clone original children to avoid innerHTML XSS risks
-        const originalIconNodes = Array.from(btnIcon.childNodes).map(n => n.cloneNode(true));
+        // ⚡ Bolt: No need to deep clone nodes, keeping the references is sufficient and faster
+        const originalIconNodes = Array.from(btnIcon.childNodes);
         const originalText = btnText.textContent;
 
         // 🛡️ Sentinel: Create SVG elements securely using DOM API
@@ -314,7 +315,7 @@
                 submitBtn.style.opacity = '';
                 submitBtn.style.cursor = 'pointer';
 
-                btnIcon.replaceChildren(...originalIconNodes.map(n => n.cloneNode(true)));
+                btnIcon.replaceChildren(...originalIconNodes);
                 btnIcon.classList.remove('spinner-icon');
                 btnText.textContent = originalText;
 
