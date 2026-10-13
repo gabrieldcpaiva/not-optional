@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ "main" ]
 
+# 🛡️ Sentinel: Apply principle of least privilege
+permissions:
+  contents: read
+
 jobs:
   pa11y-check:
     name: Run pa11y-ci
