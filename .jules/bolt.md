@@ -17,3 +17,6 @@
 ## 2026-10-13 - Redundant DOM cloning with replaceChildren
 **Learning:** Using `cloneNode(true)` when removing and subsequently restoring DOM nodes via `replaceChildren` is an unnecessary and costly operation. When nodes are removed via `replaceChildren`, they remain in memory and can be passed back directly. Cloning them wastes CPU cycles and adds memory overhead.
 **Action:** When temporarily swapping DOM elements (e.g., swapping an icon for a loading spinner), store references to the original `childNodes` array and pass those references directly back to `replaceChildren(...)` instead of deep-cloning them.
+## 2026-10-18 - Bash Subshell / Process Spawning Overhead in Loops
+**Learning:** Using `grep` inside a bash loop or repeated assertion function (e.g., `assert_contains` checking a file) spawns a new process for each call, leading to significant cumulative performance overhead.
+**Action:** Read the file content into a bash variable once (`FILE_CONTENT=$(<"$OUTPUT_FILE")`) and use native bash string matching (`[[ "$FILE_CONTENT" == *"$expected"* ]]`) to bypass spawning subshells or executing external binaries.
