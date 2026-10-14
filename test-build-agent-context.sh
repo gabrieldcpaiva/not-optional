@@ -41,10 +41,17 @@ if [ ! -f "$OUTPUT_FILE" ]; then
     TEST_FAILED=1
 fi
 
+# ⚡ Bolt Optimization: Read file contents into memory once to avoid repeated I/O
+OUTPUT_CONTENT=""
+if [ "$TEST_FAILED" -eq 0 ]; then
+    OUTPUT_CONTENT=$(cat "$OUTPUT_FILE")
+fi
+
 # Function to assert that a string is present in the output file
+# ⚡ Bolt Optimization: Use native bash string matching instead of external grep processes
 assert_contains() {
     local expected="$1"
-    if [ "$TEST_FAILED" -eq 0 ] && ! grep -qF "$expected" "$OUTPUT_FILE"; then
+    if [ "$TEST_FAILED" -eq 0 ] && [[ "$OUTPUT_CONTENT" != *"$expected"* ]]; then
         echo "❌ Error: Expected string '$expected' not found in $OUTPUT_FILE."
         TEST_FAILED=1
     fi

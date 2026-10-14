@@ -17,3 +17,6 @@
 ## 2026-10-13 - Redundant DOM cloning with replaceChildren
 **Learning:** Using `cloneNode(true)` when removing and subsequently restoring DOM nodes via `replaceChildren` is an unnecessary and costly operation. When nodes are removed via `replaceChildren`, they remain in memory and can be passed back directly. Cloning them wastes CPU cycles and adds memory overhead.
 **Action:** When temporarily swapping DOM elements (e.g., swapping an icon for a loading spinner), store references to the original `childNodes` array and pass those references directly back to `replaceChildren(...)` instead of deep-cloning them.
+## 2023-10-26 - Native Bash String Matching vs External Grep Process
+**Learning:** In bash scripts, repeatedly spawning external processes like `grep` inside functions or tight loops creates a significant performance bottleneck due to the process creation overhead. Even for simple string assertions, the time spent spawning the process far outweighs the actual search time.
+**Action:** When asserting string presence or matching simple patterns repeatedly, read the target content into memory once (e.g., `OUTPUT_CONTENT=$(cat file.txt)`) and use native bash built-in string matching (e.g., `[[ "$OUTPUT_CONTENT" == *"$expected"* ]]`). This eliminates process creation overhead and dramatically speeds up script execution.
