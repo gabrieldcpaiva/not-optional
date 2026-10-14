@@ -362,6 +362,47 @@
                 submitBtn.click();
             }
         });
+
+        // 🎨 Palette: Custom inline validation to enforce tone-accessibility-auditor rules
+        const emailInput = document.getElementById('email');
+        const emailHint = document.getElementById('email-hint');
+        const originalHintText = emailHint.textContent;
+
+        emailInput.addEventListener('invalid', (e) => {
+            // Suppress native popup so we can provide a low-demand custom message
+            e.preventDefault();
+
+            emailInput.setAttribute('aria-invalid', 'true');
+            // Visual cue without introducing new colors
+            emailInput.style.outline = '2px solid var(--color-emphasis)';
+            emailInput.style.outlineOffset = '2px';
+
+            emailHint.textContent = 'Please provide a valid email address so we can contact you.';
+            // Add a subtle color emphasis to the text to draw attention, while remaining low-demand
+            emailHint.style.color = 'var(--color-emphasis)';
+            emailHint.style.fontWeight = '600';
+
+            // Ensure screen readers announce the change
+            emailHint.setAttribute('aria-live', 'polite');
+
+            // Set focus back to input if it's not already focused
+            if (document.activeElement !== emailInput) {
+                emailInput.focus();
+            }
+        });
+
+        emailInput.addEventListener('input', () => {
+            // Revert to normal state when user starts correcting
+            if (emailInput.validity.valid) {
+                emailInput.removeAttribute('aria-invalid');
+                emailInput.style.outline = '';
+                emailInput.style.outlineOffset = '';
+                emailHint.textContent = originalHintText;
+                emailHint.style.color = '';
+                emailHint.style.fontWeight = '';
+                emailHint.removeAttribute('aria-live');
+            }
+        });
     </script>
 </body>
 </html>
