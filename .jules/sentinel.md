@@ -12,3 +12,7 @@
 **Vulnerability:** Using `innerHTML` to dynamically update the DOM (even with hardcoded SVG strings) introduces a potential XSS vector if future code refactoring inadvertently introduces user input into those strings. It's flagged by static analysis tools and violates defense-in-depth principles.
 **Learning:** Replacing `innerHTML` with native, secure DOM manipulation methods (like `document.createElementNS` for SVGs and `replaceChildren()`) completely eliminates the XSS attack surface while maintaining full functionality.
 **Prevention:** Strictly forbid the use of `innerHTML` for DOM manipulation in all baseline examples. Enforce the use of secure DOM APIs (e.g., `document.createElement`, `replaceChildren`, `textContent`) as the standard pattern.
+## 2026-10-15 - Broad Write Access in GitHub Actions
+**Vulnerability:** GitHub Actions workflows without explicit permissions blocks implicitly have broad permissions, potentially allowing malicious actors to write to the repository if a workflow is compromised.
+**Learning:** The principle of least privilege should be enforced for all CI workflows to limit the potential blast radius of compromised dependencies or actions.
+**Prevention:** Always include a `permissions` block (e.g., `permissions: contents: read`) at the top level of all GitHub Actions workflows to explicitly define and restrict access.
