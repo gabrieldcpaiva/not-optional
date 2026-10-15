@@ -17,3 +17,6 @@
 ## 2026-10-13 - Redundant DOM cloning with replaceChildren
 **Learning:** Using `cloneNode(true)` when removing and subsequently restoring DOM nodes via `replaceChildren` is an unnecessary and costly operation. When nodes are removed via `replaceChildren`, they remain in memory and can be passed back directly. Cloning them wastes CPU cycles and adds memory overhead.
 **Action:** When temporarily swapping DOM elements (e.g., swapping an icon for a loading spinner), store references to the original `childNodes` array and pass those references directly back to `replaceChildren(...)` instead of deep-cloning them.
+## 2026-10-15 - Bash script string matching optimization
+**Learning:** Spawning subshells and external processes like `grep` inside repeated functions in bash scripts can introduce significant overhead.
+**Action:** Use native bash string matching (`[[ "$CONTENT" == *"$pattern"* ]]`) and read file contents into memory once instead of repeatedly calling `grep`, as this is equivalent to `grep -F` and much faster.
