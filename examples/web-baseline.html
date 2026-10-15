@@ -250,10 +250,11 @@
             <form action="#submit" id="profile-form">
                 <label for="email">Email address <span aria-hidden="true">*</span><span class="sr-only"> (Required)</span></label>
                 <!-- Required field implies validation; tone-auditor specifies error handling tone -->
-                <input type="email" id="email" name="email" aria-describedby="email-hint" required maxlength="255" placeholder="e.g., name@example.com" autocomplete="email">
-                <p id="email-hint" style="font-size: 0.875rem; margin-top: -1rem; margin-bottom: 1.5rem;">
+                <input type="email" id="email" name="email" aria-describedby="email-hint email-error" required maxlength="255" placeholder="e.g., name@example.com" autocomplete="email">
+                <p id="email-hint" style="font-size: 0.875rem; margin-top: -1rem; margin-bottom: 0.5rem;">
                     We use this to send you account access links.
                 </p>
+                <p id="email-error" style="font-size: 0.875rem; margin-top: 0; margin-bottom: 1.5rem; color: var(--focus-color); font-weight: 600; display: none;" aria-live="polite"></p>
 
                 <!-- multimodal-cue-agent: Color change is never the only state cue. Added SVG shape. -->
                 <button type="submit" id="submit-btn" aria-live="polite" aria-keyshortcuts="Control+Enter Meta+Enter">
@@ -285,6 +286,21 @@
         const submitBtn = document.getElementById('submit-btn');
         const btnIcon = document.getElementById('btn-icon');
         const btnText = document.getElementById('btn-text');
+        const emailInput = document.getElementById('email');
+        const emailError = document.getElementById('email-error');
+
+        emailInput.addEventListener('invalid', (e) => {
+            e.preventDefault();
+            emailInput.setAttribute('aria-invalid', 'true');
+            emailError.textContent = 'Please provide a valid email format.';
+            emailError.style.display = 'block';
+        });
+
+        emailInput.addEventListener('input', () => {
+            emailInput.removeAttribute('aria-invalid');
+            emailError.textContent = '';
+            emailError.style.display = 'none';
+        });
 
         // 🛡️ Sentinel: Clone original children to avoid innerHTML XSS risks
         // ⚡ Bolt: No need to deep clone nodes, keeping the references is sufficient and faster
