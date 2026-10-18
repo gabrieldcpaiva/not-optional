@@ -30,7 +30,7 @@ jobs:
 
     - name: Validate pa11y config
       run: |
-        npx --no-install ajv validate -s schemas/pa11yci.schema.json -d .pa11yci.json
+        npx --no-install ajv-cli validate -s schemas/pa11yci.schema.json -d .pa11yci.json
 
     # In a real project, you would build the site and serve it locally before running pa11y,
     # or point it at specific static files. Here we test our baseline examples.
@@ -50,13 +50,13 @@ jobs:
         node-version: '20'
 
     - name: Install dependencies
-      run: npm install --no-save ajv-cli markdown-link-check
+      run: npm install --no-save ajv-cli markdown-link-check@3.13.7
 
     - name: Run build script test
       run: bash ./test-build-agent-context.sh
 
     - name: Validate design tokens against schema
-      run: npx --no-install ajv validate -s schemas/tokens.schema.json -d principles/tokens.screen.json -d principles/tokens.print-monochrome.json --spec=draft7
+      run: npx --no-install ajv-cli validate -s schemas/tokens.schema.json -d principles/tokens.screen.json -d principles/tokens.print-monochrome.json --spec=draft7
 
     - name: Check agent-instructions.md is up to date
       run: |
@@ -64,4 +64,10 @@ jobs:
         git diff --exit-code -- agent-instructions.md || (echo "agent-instructions.md is out of date. Run ./build-agent-context.sh and commit the result." && exit 1)
 
     - name: Check markdown links
-      run: find . -name \*.md -not -path "*/node_modules/*" -not -path "*/.git/*" -exec npx --no-install markdown-link-check -c .markdown-link-check.json -q {} \;
+      run: |
+        status=0
+        while IFS= read -r -d '' f; do
+          npx --no-install markdown-link-check -c .markdown-link-check.json -q "$f" || status=1
+        done < <(find . -name '*.md' -not -path './node_modules/*' -not -path './.git/*' -print0)
+        exit $status
+      shell: bash
