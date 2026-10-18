@@ -50,7 +50,7 @@ jobs:
         node-version: '20'
 
     - name: Install dependencies
-      run: npm install --no-save ajv-cli markdown-link-check@3.13.7
+      run: npm install --no-save ajv-cli markdown-link-check@3.14.2
 
     - name: Run build script test
       run: bash ./test-build-agent-context.sh
