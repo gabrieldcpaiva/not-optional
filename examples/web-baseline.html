@@ -147,24 +147,11 @@
             opacity: 0.9;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .spinner-icon {
-            animation: spin 1s linear infinite;
-        }
-
         button svg {
             /* Multimodal cue: geometry paired with text */
             width: 1.25rem;
             height: 1.25rem;
             fill: currentColor;
-        }
-
-        button[aria-disabled="true"] {
-            opacity: 0.5;
-            cursor: not-allowed;
         }
 
         details {
@@ -202,37 +189,10 @@
             white-space: nowrap;
             border-width: 0;
         }
-
-        /* Skip Link Utility */
-        .skip-link {
-            position: absolute;
-            top: -40px;
-            left: 0;
-            background: var(--color-emphasis);
-            color: var(--color-canvas);
-            padding: 8px;
-            z-index: 100;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .skip-link:focus {
-            top: 0;
-        }
-
-        kbd {
-            background-color: var(--color-canvas);
-            border: 1px solid var(--color-divider);
-            border-radius: 4px;
-            padding: 0.125rem 0.375rem;
-            font-size: 0.85em;
-            font-family: ui-monospace, monospace;
-        }
     </style>
 </head>
 <body>
-    <a href="#main-content" class="skip-link">Skip to main content</a>
-    <main class="container" id="main-content" tabindex="-1" style="outline: none;">
+    <main class="container">
         <!-- aria-dom-architect: Sequential headings. Native HTML first. One h1. -->
         <h1>Account Setup</h1>
 
@@ -247,24 +207,22 @@
 
         <div class="surface-card">
             <!-- Native HTML form elements instead of ARIA constructs -->
-            <form action="#submit" id="profile-form">
+            <form action="#submit">
                 <label for="email">Email address <span aria-hidden="true">*</span><span class="sr-only"> (Required)</span></label>
                 <!-- Required field implies validation; tone-auditor specifies error handling tone -->
-                <input type="email" id="email" name="email" aria-describedby="email-hint email-error" required maxlength="255" placeholder="e.g., name@example.com" autocomplete="email">
-                <p id="email-hint" style="font-size: 0.875rem; margin-top: -1rem; margin-bottom: 0.5rem;">
+                <input type="email" id="email" name="email" aria-describedby="email-hint" required maxlength="255" placeholder="e.g., name@example.com" autocomplete="email">
+                <p id="email-hint" style="font-size: 0.875rem; margin-top: -1rem; margin-bottom: 1.5rem;">
                     We use this to send you account access links.
                 </p>
-                <p id="email-error" style="font-size: 0.875rem; margin-top: 0; margin-bottom: 1.5rem; color: var(--focus-color); font-weight: 600; display: none;" aria-live="polite"></p>
 
                 <!-- multimodal-cue-agent: Color change is never the only state cue. Added SVG shape. -->
-                <button type="submit" id="submit-btn" aria-live="polite" aria-keyshortcuts="Control+Enter Meta+Enter">
+                <button type="submit">
                     <!-- Decorative SVG: aria-hidden="true" -->
-                    <svg id="btn-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+                    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
                         <path d="M5 12l5 5l10 -10" stroke="currentColor" stroke-width="2" fill="none"/>
                     </svg>
-                    <span id="btn-text">Save profile</span>
+                    <span>Save profile</span>
                 </button>
-                <p style="font-size: 0.875rem; margin-top: 0.5rem; color: var(--color-emphasis);">Press <kbd>Cmd</kbd> / <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to save</p>
             </form>
         </div>
 
@@ -280,7 +238,5 @@
         </details>
 
     </main>
-
-    <script src="web-baseline.js"></script>
 </body>
 </html>
