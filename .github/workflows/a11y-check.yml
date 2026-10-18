@@ -30,9 +30,38 @@ jobs:
 
     - name: Validate pa11y config
       run: |
-        npx --no-install ajv-cli validate -s schemas/pa11yci.schema.json -d .pa11yci.json
+        npx --no-install ajv validate -s schemas/pa11yci.schema.json -d .pa11yci.json
 
     # In a real project, you would build the site and serve it locally before running pa11y,
     # or point it at specific static files. Here we test our baseline examples.
     - name: Run Accessibility Tests
       run: npx --no-install pa11y-ci examples/*.html --config .pa11yci.json
+
+  repo-checks:
+    name: Repo Checks
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Use Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install dependencies
+      run: npm install --no-save ajv-cli markdown-link-check
+
+    - name: Run build script test
+      run: bash ./test-build-agent-context.sh
+
+    - name: Validate design tokens against schema
+      run: npx --no-install ajv validate -s schemas/tokens.schema.json -d principles/tokens.screen.json -d principles/tokens.print-monochrome.json --spec=draft7
+
+    - name: Check agent-instructions.md is up to date
+      run: |
+        ./build-agent-context.sh
+        git diff --exit-code -- agent-instructions.md || (echo "agent-instructions.md is out of date. Run ./build-agent-context.sh and commit the result." && exit 1)
+
+    - name: Check markdown links
+      run: find . -name \*.md -not -path "*/node_modules/*" -not -path "*/.git/*" -exec npx --no-install markdown-link-check -c .markdown-link-check.json -q {} \;
