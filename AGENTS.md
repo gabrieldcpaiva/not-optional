@@ -13,5 +13,5 @@ When parsing rules for a task, follow this precedence:
 ## Contributor Rules
 
 - **Do not edit `agent-instructions.md` by hand.** It is auto-generated.
-- If you edit any files in `principles/`, `skills/`, or the token schemas, you **must** run `./build-agent-context.sh` afterwards to rebuild the master file.
-- Before committing, run `./test-build-agent-context.sh` to ensure the generated file matches the current rules.
+- If you edit any files in `principles/` (including the token JSON files) or `skills/`, you **must** run `./build-agent-context.sh` afterwards to rebuild the master file.
+- Before committing, run `./test-build-agent-context.sh` to ensure the build script still works.

@@ -12,6 +12,6 @@ Key requirements:
 - Use native semantic HTML elements; avoid ARIA unless a native element cannot express the state.
 - Ensure strict compliance with WCAG 2.1 AA for text contrast.
 - Implement explicit `:focus-visible` styles using the defined 3px width and 2px offset.
-- Adhere to micro-chunking laws: max 4 visual lines per chunk, max 45 words per paragraph, and 65-75 characters per line.
+- Adhere to micro-chunking laws: max 4 visual lines per chunk, max 45 words per body block, and 45-65 characters per line (max 75).
 - Use the design tokens from `principles/tokens.screen.json` or `principles/tokens.print-monochrome.json`.
 - Fail closed on critical violations.
