@@ -74,7 +74,7 @@ To understand what these rules look like in practice, see the concrete baseline 
 3. The `SKILL.md` files you need
 4. Fail closed on critical violations
 
-Optional local HTML scan:
+Optional local HTML scan (requires `.pa11yci.json` to have `urls` configured):
 
 ```bash
 npx pa11y-ci --config .pa11yci.json
