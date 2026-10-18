@@ -2,7 +2,8 @@
   "ignorePatterns": [
     { "pattern": "^http://localhost" },
     { "pattern": "^https?://localhost" },
-    { "pattern": "raw.githubusercontent.com" }
+    { "pattern": "raw.githubusercontent.com" },
+    { "pattern": "^https://gabrieldcpaiva\\.github\\.io/not-optional" }
   ],
   "retryOn429": true
 }
