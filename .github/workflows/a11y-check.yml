@@ -24,6 +24,9 @@ jobs:
         node-version: '20'
 
     - name: Install dependencies
+      # ⚡ Bolt Optimization: Batch install required CLI tools.
+      # Installing ajv-cli here prevents npx from having to dynamically resolve,
+      # download, and setup a temporary environment for it during the validation step.
       run: npm install --no-save pa11y-ci ajv-cli
 
     - name: Validate pa11y config
