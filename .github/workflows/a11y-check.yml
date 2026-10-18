@@ -24,7 +24,6 @@ jobs:
         node-version: '20'
 
     - name: Install dependencies
-      # ⚡ Bolt Optimization: Batch install all CLI tools and skip npx -y download overhead
       run: npm install --no-save pa11y-ci ajv-cli
 
     - name: Validate pa11y config
