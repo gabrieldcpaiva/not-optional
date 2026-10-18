@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:; font-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self';">
     <title>Baseline Web Example - not-optional</title>
     <style>
         /*
@@ -179,6 +179,11 @@
             fill: currentColor;
         }
 
+        button[aria-disabled="true"] {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
         details {
             background-color: var(--color-surface);
             padding: 1rem;
@@ -214,10 +219,37 @@
             white-space: nowrap;
             border-width: 0;
         }
+
+        /* Skip Link Utility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--color-emphasis);
+            color: var(--color-canvas);
+            padding: 8px;
+            z-index: 100;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        kbd {
+            background-color: var(--color-canvas);
+            border: 1px solid var(--color-divider);
+            border-radius: 4px;
+            padding: 0.125rem 0.375rem;
+            font-size: 0.85em;
+            font-family: ui-monospace, monospace;
+        }
     </style>
 </head>
 <body>
-    <main class="container">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <main class="container" id="main-content" tabindex="-1" style="outline: none;">
         <!-- aria-dom-architect: Sequential headings. Native HTML first. One h1. -->
         <h1>Account Setup</h1>
 
@@ -232,13 +264,14 @@
 
         <div class="surface-card">
             <!-- Native HTML form elements instead of ARIA constructs -->
-            <form action="#submit">
+            <form action="#submit" id="profile-form">
                 <label for="email">Email address <span aria-hidden="true">*</span><span class="sr-only"> (Required)</span></label>
                 <!-- Required field implies validation; tone-auditor specifies error handling tone -->
-                <input type="email" id="email" name="email" aria-describedby="email-hint" required maxlength="255" placeholder="e.g., name@example.com" autocomplete="email">
-                <p id="email-hint" style="font-size: 0.875rem; margin-top: -1rem; margin-bottom: 1.5rem;">
+                <input type="email" id="email" name="email" aria-describedby="email-hint email-error" required maxlength="255" placeholder="e.g., name@example.com" autocomplete="email">
+                <p id="email-hint" style="font-size: 0.875rem; margin-top: -1rem; margin-bottom: 0.5rem;">
                     We use this to send you account access links.
                 </p>
+                <p id="email-error" style="font-size: 0.875rem; margin-top: 0; margin-bottom: 1.5rem; color: var(--focus-color); font-weight: 600; display: none;" aria-live="polite"></p>
 
                 <!-- multimodal-cue-agent: Color change is never the only state cue. Added SVG shape. -->
                 <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
