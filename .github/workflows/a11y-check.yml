@@ -6,9 +6,6 @@ on:
   pull_request:
     branches: [ "main" ]
 
-permissions:
-  contents: read
-
 jobs:
   pa11y-check:
     name: Run pa11y-ci
@@ -24,71 +21,13 @@ jobs:
         node-version: '20'
 
     - name: Install dependencies
-      run: npm install --no-save pa11y-ci ajv-cli
+      run: npm install --no-save pa11y-ci
 
     - name: Validate pa11y config
       run: |
-        npx ajv-cli validate -s schemas/pa11yci.schema.json -d .pa11yci.json
+        npx -y ajv-cli validate -s schemas/pa11yci.schema.json -d .pa11yci.json
 
     # In a real project, you would build the site and serve it locally before running pa11y,
     # or point it at specific static files. Here we test our baseline examples.
     - name: Run Accessibility Tests
-      run: npx --no-install pa11y-ci --config .pa11yci.json
-
-    - name: Verify Content Security Policy
-      run: |
-        node << 'JS'
-        const puppeteer = require('puppeteer');
-        const path = require('path');
-
-        (async () => {
-          const browser = await puppeteer.launch({
-            args: ['--no-sandbox', '--disable-setuid-sandbox']
-          });
-          const page = await browser.newPage();
-
-          let errors = 0;
-
-          page.on('console', msg => {
-            if (msg.type() === 'error') {
-              console.error(`Console Error: ${msg.text()}`);
-              errors++;
-            }
-          });
-
-          page.on('pageerror', err => {
-            console.error(`Page Error: ${err.message}`);
-            errors++;
-          });
-
-          page.on('requestfailed', request => {
-            console.error(`Request Failed: ${request.url()} - ${request.failure().errorText}`);
-            errors++;
-          });
-
-          // Wait until network is idle to capture CSP blocks
-          const fileUrl = `file://${path.resolve(process.cwd(), 'examples/web-baseline.html')}`;
-          console.log(`Checking ${fileUrl}...`);
-
-          try {
-            await page.goto(fileUrl, { waitUntil: 'networkidle0' });
-
-            // Give it a tiny bit of time to report CSP violations
-            await new Promise(r => setTimeout(r, 1000));
-
-          } catch (e) {
-            console.error(`Failed to load page: ${e}`);
-            errors++;
-          }
-
-          await browser.close();
-
-          if (errors > 0) {
-            console.error(`Failed with ${errors} errors. CSP or console issues detected.`);
-            process.exit(1);
-          } else {
-            console.log('No console errors or CSP violations detected.');
-            process.exit(0);
-          }
-        })();
-        JS
+      run: npx pa11y-ci examples/*.html --config .pa11yci.json

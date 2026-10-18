@@ -1,6 +1,6 @@
 # Roadmap: Enhancing `not-optional` Accessibility
 
-This roadmap outlines a step-by-step plan to transform the `not-optional` toolkit from a collection of modular rules into a highly accessible, "drop-in" standard that is instantly usable by human developers and AI agents alike.
+This roadmap outlines a step-by-step plan to transform the `not-optional` toolkit from a collection of brilliant, modular rules into a highly accessible, "drop-in" standard that is instantly usable by human developers and AI agents alike.
 
 ## Phase 1: AI Agent Unification (The "Drop-In" Context)
 Currently, an AI needs to stitch together multiple markdown files. We need to create a single source of truth for AI context windows.
@@ -45,4 +45,4 @@ Make the `a11y-ci-gatekeeper` fully actionable.
 
 ## Status
 
-Phases 1–4 are done. Please see `STATUS.md` for current details.
+Phases 1–4 are done. V1 was un-frozen in commit `d46c401`; see `STATUS.md`.

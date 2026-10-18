@@ -20,8 +20,6 @@ Fail closed if any of these are true:
 
 ## Execution (optional tooling)
 
-Requires `.pa11yci.json` to have an array of `urls` configured.
-
 ```bash
 npx pa11y-ci --config .pa11yci.json
 ```

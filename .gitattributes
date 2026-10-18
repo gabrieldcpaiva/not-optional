@@ -1,5 +1,0 @@
-* text=auto eol=lf
-*.sh text eol=lf linguist-vendored
-*.md linguist-detectable linguist-documentation=false
-*.html linguist-detectable
-*.json linguist-detectable
