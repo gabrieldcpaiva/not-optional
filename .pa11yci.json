@@ -7,5 +7,9 @@
     "chromeLaunchConfig": {
       "args": ["--no-sandbox", "--disable-setuid-sandbox"]
     }
-  }
+  },
+  "urls": [
+    "examples/web-baseline.html",
+    "examples/print-baseline.html"
+  ]
 }
