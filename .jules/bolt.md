@@ -7,13 +7,6 @@
 ## 2025-02-12 - Duplicate Block Overwriting Optimization & Bug Fix
 **Learning:** A bash script was designed to output headers and principles, but a later duplicated code block in the script erroneously re-generated those headers/principles and used the destructive output redirection `> "$OUTPUT_FILE"` instead of appending `>> "$OUTPUT_FILE"`. This wiped out the previous output and performed redundant disk I/O and process spawns.
 **Action:** When finding logic duplicated across blocks writing to the same file, examine the file redirection operators. Remove the redundant loop and change `> "$OUTPUT_FILE"` to `>> "$OUTPUT_FILE"` to fix the bug and improve performance.
-
-## 2025-02-18 - CI Dependency Dynamic Resolution Overhead
-**Learning:** In GitHub Actions (and other CI environments), using `npx -y` (or `npx` generally) on tools that aren't already installed locally causes Node to dynamically resolve, download, and install the package every time the command is invoked. This introduces significant network and parsing overhead, particularly if the tool is used multiple times or could be batched.
-**Action:** When multiple CLI tools (like `pa11y-ci` and `ajv-cli`) are needed in CI for a project without a `package.json`, install them together using a single `npm install --no-save package1 package2` command. Then, remove the `-y` flag from subsequent `npx` calls. This caches the installation and eliminates the per-call resolution penalty.
-## 2026-10-11 - npx Execution Overhead in CI
-**Learning:** Using `npx <command>` even when the package is installed locally triggers an npm resolution check. This dynamic resolution and checking overhead can add over 1 second per step (e.g. from 0.6s to 3s). In a CI environment where multiple tools are called, this adds up quickly.
-**Action:** Use `npx --no-install <command>` or `npx --no <command>` to strictly enforce local execution and completely bypass the dynamic resolution and network checks.
-## 2026-10-13 - Redundant DOM cloning with replaceChildren
-**Learning:** Using `cloneNode(true)` when removing and subsequently restoring DOM nodes via `replaceChildren` is an unnecessary and costly operation. When nodes are removed via `replaceChildren`, they remain in memory and can be passed back directly. Cloning them wastes CPU cycles and adds memory overhead.
-**Action:** When temporarily swapping DOM elements (e.g., swapping an icon for a loading spinner), store references to the original `childNodes` array and pass those references directly back to `replaceChildren(...)` instead of deep-cloning them.
+## 2026-10-09 - CI Dynamic Execution Overhead without package.json
+**Learning:** In repositories lacking a `package.json` (like this one), GitHub Actions workflows often use `npx -y` to execute tools. This causes a significant performance overhead as npm resolves and downloads the package dynamically on every run, rather than using a cached or batched installation.
+**Action:** In CI workflows (e.g., `.github/workflows/a11y-check.yml`), batch the installation of necessary CLI tools (like `pa11y-ci` and `ajv-cli`) using a single `npm install --no-save` command, and omit the `-y` flag in subsequent `npx` commands.
