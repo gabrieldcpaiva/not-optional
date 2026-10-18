@@ -7,6 +7,7 @@ It is not a premium feature.
 It is baseline competence inside the workflow.
 
 **[Live demo](https://gabrieldcpaiva.github.io/not-optional/examples/web-baseline.html)** · [Source](./examples/web-baseline.html)
+
 ![The not-optional web demo: an account setup form with a calm off-white background, sage-green headings and a clear focus-ready Save button](./docs/web-demo.png)
 
 This repository is a technical toolkit for web interfaces and physical printables. It combines WAI / WCAG 2.1 AA practice with four additional constraints that checklists often skip:
