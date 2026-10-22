@@ -66,6 +66,22 @@ assert_contains "Dummy Skill 2 Content"
 assert_contains '{"token": "screen"}'
 assert_contains '{"token": "print"}'
 
+
+# Test with a custom output file name
+CUSTOM_OUTPUT="custom-instructions.md"
+./build-agent-context.sh "$CUSTOM_OUTPUT" > /dev/null
+
+if [ ! -f "$CUSTOM_OUTPUT" ]; then
+    echo "❌ Error: $CUSTOM_OUTPUT was not created."
+    TEST_FAILED=1
+fi
+
+if [ "$TEST_FAILED" -eq 0 ]; then
+    OUTPUT_CONTENT=$(<"$CUSTOM_OUTPUT")
+    OUTPUT_FILE="$CUSTOM_OUTPUT"
+    assert_contains "Dummy Principle 1"
+fi
+
 popd > /dev/null
 
 if [ "$TEST_FAILED" -eq 1 ]; then

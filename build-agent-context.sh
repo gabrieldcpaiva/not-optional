@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the output file
-OUTPUT_FILE="agent-instructions.md"
+OUTPUT_FILE="${1:-agent-instructions.md}"
 
 echo "Building $OUTPUT_FILE..."
 
